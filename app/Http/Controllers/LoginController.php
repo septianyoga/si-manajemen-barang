@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreLoginRequest;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use RealRashid\SweetAlert\Facades\Alert;
 
-class DashboardController extends Controller
+class LoginController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -12,8 +15,8 @@ class DashboardController extends Controller
     public function index()
     {
         //
-        return view('dashboard.index', [
-            'title' => 'Dashboard'
+        return view('auth.login', [
+            'title' => 'Login'
         ]);
     }
 
@@ -28,9 +31,20 @@ class DashboardController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreLoginRequest $request)
     {
         //
+        $auth = [
+            'email' => $request->email,
+            'password' => $request->password
+        ];
+
+        if (Auth::attempt($auth)) {
+            $request->session()->regenerate();
+            return redirect()->to('dashboard');
+        }
+        Alert::error('Error', 'Email atau Password Salah!');
+        return redirect()->back();
     }
 
     /**
@@ -60,8 +74,10 @@ class DashboardController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy()
     {
         //
+        Auth::logout();
+        return redirect()->to('login');
     }
 }

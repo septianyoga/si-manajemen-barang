@@ -29,130 +29,62 @@
                 </div>
             </form>
         </div>
-        <div class="pcoded-navigation-label">Navigation</div>
+        <div class="pcoded-navigation-label">Menu</div>
         <ul class="pcoded-item pcoded-left-item">
-            <li class="active">
-                <a href="index.html" class="waves-effect waves-dark">
+            <li class="{{ $title == 'Dashboard' ? 'active' : '' }}">
+                <a href="/dashboard" class="waves-effect waves-dark">
                     <span class="pcoded-micon"><i class="ti-home"></i><b>D</b></span>
                     <span class="pcoded-mtext">Dashboard</span>
                     <span class="pcoded-mcaret"></span>
                 </a>
             </li>
-        </ul>
-        <div class="pcoded-navigation-label">UI Element</div>
-        <ul class="pcoded-item pcoded-left-item">
-            <li class="pcoded-hasmenu">
+            <li class="{{ $title == 'Kelola User' ? 'active' : '' }}">
+                <a href="/users" class="waves-effect waves-dark">
+                    <span class="pcoded-micon"><i class="ti-user"></i><b>D</b></span>
+                    <span class="pcoded-mtext">User</span>
+                    <span class="pcoded-mcaret"></span>
+                </a>
+            </li>
+            <li
+                class="pcoded-hasmenu {{ $title == 'Kelola Barang' || $title == 'Kelola Kategori' ? 'active pcoded-trigger' : '' }}">
                 <a href="javascript:void(0)" class="waves-effect waves-dark">
-                    <span class="pcoded-micon"><i class="ti-layout-grid2-alt"></i><b>BC</b></span>
-                    <span class="pcoded-mtext">Basic</span>
+                    <span class="pcoded-micon"><i class="ti-package"></i></span>
+                    <span class="pcoded-mtext">Barang</span>
                     <span class="pcoded-mcaret"></span>
                 </a>
                 <ul class="pcoded-submenu">
+                    <li class="{{ $title == 'Kelola Barang' ? 'active' : '' }}">
+                        <a href="/barang" class="waves-effect waves-dark">
+                            <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+                            <span class="pcoded-mtext"><i class="bi bi-box-seam"></i> Stok Barang</span>
+                            <span class="pcoded-mcaret"></span>
+                        </a>
+                    </li>
                     <li class=" ">
                         <a href="breadcrumb.html" class="waves-effect waves-dark">
                             <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-                            <span class="pcoded-mtext">Breadcrumbs</span>
+                            <span class="pcoded-mtext"><i class="bi bi-box-arrow-in-down"></i> Barang Masuk</span>
                             <span class="pcoded-mcaret"></span>
                         </a>
                     </li>
                     <li class=" ">
                         <a href="button.html" class="waves-effect waves-dark">
                             <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-                            <span class="pcoded-mtext">Button</span>
+                            <span class="pcoded-mtext"><i class="bi bi-box-arrow-up"></i> Barang Keluar</span>
                             <span class="pcoded-mcaret"></span>
                         </a>
                     </li>
-                    <li class="">
-                        <a href="accordion.html" class="waves-effect waves-dark">
+                    <li class="{{ $title == 'Kelola Kategori' ? 'active' : '' }}">
+                        <a href="/kategori" class="waves-effect waves-dark">
                             <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-                            <span class="pcoded-mtext">Accordion</span>
-                            <span class="pcoded-mcaret"></span>
-                        </a>
-                    </li>
-                    <li class=" ">
-                        <a href="tabs.html" class="waves-effect waves-dark">
-                            <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-                            <span class="pcoded-mtext">Tabs</span>
-                            <span class="pcoded-mcaret"></span>
-                        </a>
-                    </li>
-                    <li class=" ">
-                        <a href="color.html" class="waves-effect waves-dark">
-                            <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-                            <span class="pcoded-mtext">Color</span>
-                            <span class="pcoded-mcaret"></span>
-                        </a>
-                    </li>
-                    <li class=" ">
-                        <a href="label-badge.html" class="waves-effect waves-dark">
-                            <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-                            <span class="pcoded-mtext">Label Badge</span>
-                            <span class="pcoded-mcaret"></span>
-                        </a>
-                    </li>
-                    <li class=" ">
-                        <a href="tooltip.html" class="waves-effect waves-dark">
-                            <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-                            <span class="pcoded-mtext">Tooltip And Popover</span>
-                            <span class="pcoded-mcaret"></span>
-                        </a>
-                    </li>
-                    <li class=" ">
-                        <a href="typography.html" class="waves-effect waves-dark">
-                            <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-                            <span class="pcoded-mtext">Typography</span>
-                            <span class="pcoded-mcaret"></span>
-                        </a>
-                    </li>
-                    <li class=" ">
-                        <a href="notification.html" class="waves-effect waves-dark">
-                            <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-                            <span class="pcoded-mtext">Notifications</span>
+                            <span class="pcoded-mtext"><i class="bi bi-tag"></i> Kategori Barang</span>
                             <span class="pcoded-mcaret"></span>
                         </a>
                     </li>
                 </ul>
             </li>
         </ul>
-        <div class="pcoded-navigation-label">Forms</div>
-        <ul class="pcoded-item pcoded-left-item">
-            <li class="">
-                <a href="form-elements-component.html" class="waves-effect waves-dark">
-                    <span class="pcoded-micon"><i class="ti-layers"></i><b>FC</b></span>
-                    <span class="pcoded-mtext">Form</span>
-                    <span class="pcoded-mcaret"></span>
-                </a>
-            </li>
-        </ul>
-        <div class="pcoded-navigation-label">Tables</div>
-        <ul class="pcoded-item pcoded-left-item">
-            <li class="">
-                <a href="bs-basic-table.html" class="waves-effect waves-dark">
-                    <span class="pcoded-micon"><i class="ti-receipt"></i><b>B</b></span>
-                    <span class="pcoded-mtext">Table</span>
-                    <span class="pcoded-mcaret"></span>
-                </a>
-            </li>
-        </ul>
-        <div class="pcoded-navigation-label">Chart And Maps</div>
-        <ul class="pcoded-item pcoded-left-item">
-            <li class="">
-                <a href="chart-morris.html" class="waves-effect waves-dark">
-                    <span class="pcoded-micon"><i class="ti-bar-chart-alt"></i><b>C</b></span>
-                    <span class="pcoded-mtext">Charts</span>
-                    <span class="pcoded-mcaret"></span>
-                </a>
-            </li>
-            <li class="">
-                <a href="map-google.html" class="waves-effect waves-dark">
-                    <span class="pcoded-micon"><i class="ti-map-alt"></i><b>M</b></span>
-                    <span class="pcoded-mtext">Maps</span>
-                    <span class="pcoded-mcaret"></span>
-                </a>
-            </li>
-        </ul>
-        <div class="pcoded-navigation-label">Pages</div>
-        <ul class="pcoded-item pcoded-left-item">
+        {{-- <ul class="pcoded-item pcoded-left-item">
             <li class="pcoded-hasmenu ">
                 <a href="javascript:void(0)" class="waves-effect waves-dark">
                     <span class="pcoded-micon"><i class="ti-id-badge"></i><b>A</b></span>
@@ -183,6 +115,6 @@
                     </li>
                 </ul>
             </li>
-        </ul>
+        </ul> --}}
     </div>
 </nav>

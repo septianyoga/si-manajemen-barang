@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title>Material Able bootstrap admin template by Codedthemes</title>
+    <title>{{ $title }}</title>
     <!-- HTML5 Shim and Respond.js IE10 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 10]>
@@ -41,11 +41,19 @@
         href="{{ asset('template/backend/assets/css/jquery.mCustomScrollbar.css') }}">
     <!-- Style.css -->
     <link rel="stylesheet" type="text/css" href="{{ asset('template/backend/assets/css/style.css') }}">
+
+    <link rel="stylesheet" type="text/css" href="{{ asset('template/backend/assets/icon/icofont/css/icofont.css') }}">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+    {{-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css"> --}}
+    <link rel="stylesheet" href="https://cdn.datatables.net/2.0.3/css/dataTables.bootstrap4.css">
 </head>
 
 <body>
+    @include('sweetalert::alert')
     <!-- Pre-loader start -->
-    <div class="theme-loader">
+    <div class="theme-loader ">
         <div class="loader-track">
             <div class="preloader-wrapper">
                 <div class="spinner-layer spinner-blue">
@@ -161,8 +169,9 @@
 
     <!-- Required Jquery -->
     <script type="text/javascript" src="{{ asset('template/backend/assets/js/jquery/jquery.min.js') }} "></script>
+    {{-- <script src="https://code.jquery.com/jquery-3.7.1.js"></script> --}}
     <script type="text/javascript" src="{{ asset('template/backend/assets/js/jquery-ui/jquery-ui.min.js') }} "></script>
-    <script type="text/javascript" src="{{ asset('template/backend/assets/js/popper.js') }}/popper.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('template/backend/assets/js/popper.js/popper.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('template/backend/assets/js/bootstrap/js/bootstrap.min.js') }} "></script>
     <!-- waves js -->
     <script src="{{ asset('template/backend/assets/pages/waves/js/waves.min.js') }}"></script>
@@ -178,6 +187,16 @@
     <script src="{{ asset('template/backend/assets/js/vertical/vertical-layout.min.js') }} "></script>
 
     <script type="text/javascript" src="{{ asset('template/backend/assets/js/script.js') }} "></script>
+
+    {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/js/bootstrap.min.js"></script> --}}
+    {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script> --}}
+    <script src="https://cdn.datatables.net/2.0.3/js/dataTables.js"></script>
+    <script src="https://cdn.datatables.net/2.0.3/js/dataTables.bootstrap4.js"></script>
+
+    <script>
+        $('#datatable').DataTable();
+    </script>
+
 </body>
 
 </html>
