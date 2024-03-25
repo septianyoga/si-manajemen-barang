@@ -16,7 +16,7 @@ class BarangController extends Controller
     public function index()
     {
         //
-        return view('admin.barang.index', [
+        return view('supplychain.barang.index', [
             'title' => 'Kelola Barang',
             'barangs'   => Barang::with('kategori')->get(),
             'kategoris'  => Kategori::all()
@@ -63,7 +63,7 @@ class BarangController extends Controller
     public function edit(Barang $barang, string $id)
     {
         //
-        return view('admin.barang.edit', [
+        return view('supplychain.barang.edit', [
             'title' => 'Edit Barang',
             'barang'    => $barang->findOrFail($id),
             'kategoris' => Kategori::all()

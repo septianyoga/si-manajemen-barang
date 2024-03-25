@@ -14,7 +14,7 @@
                     <li class="more-details">
                         <a href="user-profile.html"><i class="ti-user"></i>View Profile</a>
                         <a href="#!"><i class="ti-settings"></i>Settings</a>
-                        <a href="auth-normal-sign-in.html"><i class="ti-layout-sidebar-left"></i>Logout</a>
+                        <a href="/logout"><i class="ti-layout-sidebar-left"></i>Logout</a>
                     </li>
                 </ul>
             </div>
@@ -38,13 +38,15 @@
                     <span class="pcoded-mcaret"></span>
                 </a>
             </li>
-            <li class="{{ $title == 'Kelola User' ? 'active' : '' }}">
-                <a href="/users" class="waves-effect waves-dark">
-                    <span class="pcoded-micon"><i class="ti-user"></i><b>D</b></span>
-                    <span class="pcoded-mtext">User</span>
-                    <span class="pcoded-mcaret"></span>
-                </a>
-            </li>
+            @if (Auth::user()->role == 'Direktur')
+                <li class="{{ $title == 'Kelola User' ? 'active' : '' }}">
+                    <a href="/users" class="waves-effect waves-dark">
+                        <span class="pcoded-micon"><i class="ti-user"></i><b>D</b></span>
+                        <span class="pcoded-mtext">User</span>
+                        <span class="pcoded-mcaret"></span>
+                    </a>
+                </li>
+            @endif
             <li
                 class="pcoded-hasmenu {{ $title == 'Kelola Barang' || $title == 'Kelola Kategori' ? 'active pcoded-trigger' : '' }}">
                 <a href="javascript:void(0)" class="waves-effect waves-dark">
@@ -82,6 +84,13 @@
                         </a>
                     </li>
                 </ul>
+            </li>
+            <li class="{{ $title == 'Kelola Supplier' ? 'active' : '' }}">
+                <a href="/supplier" class="waves-effect waves-dark">
+                    <span class="pcoded-micon"><i class="bi bi-truck"></i><b>D</b></span>
+                    <span class="pcoded-mtext">Kelola Supplier</span>
+                    <span class="pcoded-mcaret"></span>
+                </a>
             </li>
         </ul>
         {{-- <ul class="pcoded-item pcoded-left-item">

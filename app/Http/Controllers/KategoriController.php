@@ -15,7 +15,7 @@ class KategoriController extends Controller
     public function index()
     {
         //
-        return view('admin.kategori.index', [
+        return view('supplychain.kategori.index', [
             'title' => 'Kelola Kategori',
             'kategoris' => Kategori::with('barang')->get()
         ]);
@@ -56,7 +56,7 @@ class KategoriController extends Controller
     public function edit(Kategori $kategori, string $id)
     {
         //
-        return view('admin.kategori.edit', [
+        return view('supplychain.kategori.edit', [
             'title' => 'Edit Kategori',
             'kategori'  => $kategori->findOrFail($id)
         ]);
