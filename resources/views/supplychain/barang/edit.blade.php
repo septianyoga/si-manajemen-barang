@@ -87,22 +87,6 @@
                                         @enderror
                                     </div>
                                 </div>
-                                <div class="form-group row">
-                                    <label class="col-sm-2 col-form-label">Kategori Barang</label>
-                                    <div class="col-sm-10">
-                                        <select name="kategori_id" id="kategori_id" class="form-control">
-                                            @foreach ($kategoris as $kategori)
-                                                <option value="{{ $kategori->id }}"
-                                                    {{ $kategori->id == $barang->kategori_id ? 'selected' : '' }}>
-                                                    {{ $kategori->nama_kategori }}
-                                                </option>
-                                            @endforeach
-                                        </select>
-                                        @error('kategori_id')
-                                            <small class="text-danger">*{{ $message }}</small>
-                                        @enderror
-                                    </div>
-                                </div>
                             </div>
                             <div class="card-footer d-flex justify-content-between ">
                                 <a href="/barang" class="btn btn-secondary">Kembali</a>

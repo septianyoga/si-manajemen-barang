@@ -20,7 +20,7 @@ $(document).ready(function () {
         setTimeout(function () {
             $this.parents('.card').children(".card-loader").remove();
             $this.parents('.card').removeClass("card-load");
-        }, 3000);
+        }, 1500);
     });
     $(".card-header-right .card-option .open-card-option").on('click', function () {
         var $this = $(this);
@@ -197,10 +197,10 @@ $(document).ready(function () {
 $(document).ready(function () {
     $(".theme-loader").animate({
         opacity: "0"
-    }, 1000);
+    }, 50);
     setTimeout(function () {
         $(".theme-loader").remove();
-    }, 1000);
+    }, 50);
 
 });
 

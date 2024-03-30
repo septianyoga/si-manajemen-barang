@@ -15,7 +15,7 @@
                         <li class="breadcrumb-item">
                             <a href="/dashboard"> <i class="fa fa-home"></i> </a>
                         </li>
-                        <li class="breadcrumb-item"><a href="/barang">{{ $title }}</a>
+                        <li class="breadcrumb-item"><a href="/bahan_baku">{{ $title }}</a>
                         </li>
                     </ul>
                 </div>
@@ -32,7 +32,7 @@
                     <!-- Hover table card start -->
                     <div class="card">
                         <div class="card-header">
-                            <h5>Data Barang</h5>
+                            <h5>Data Bahan Baku</h5>
                             <div class="card-header-right d-flex align-items-center ">
                                 <button class="btn btn-primary" id="tambah" data-toggle="modal"
                                     data-target="#exampleModal"><i class="ti-plus text-white "></i> Tambah</button>
@@ -48,25 +48,29 @@
                                 <thead>
                                     <tr>
                                         <th>#</th>
-                                        <th>Nama Barang</th>
-                                        <th>Harga Barang</th>
-                                        <th>Stok Barang</th>
-                                        <th>Status Barang</th>
+                                        <th>Nama Bahan Baku</th>
+                                        <th>Harga</th>
+                                        <th>Biaya Penyimpanan</th>
+                                        <th>Stok</th>
+                                        <th>Satuan</th>
+                                        <th>Kategori</th>
                                         <th class="text-center">Opsi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($barangs as $barang)
+                                    @foreach ($bahan_bakus as $bahan_baku)
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
-                                            <td>{{ $barang->nama_barang }}</td>
-                                            <td>{{ $barang->harga_barang }}</td>
-                                            <td>{{ $barang->stok_barang }}</td>
-                                            <td>{{ $barang->status_barang }}</td>
+                                            <td>{{ $bahan_baku->nama_barang }}</td>
+                                            <td>Rp. {{ number_format($bahan_baku->harga, 0, ',', '.') }}</td>
+                                            <td>Rp. {{ number_format($bahan_baku->biaya_penyimpanan, 0, ',', '.') }}</td>
+                                            <td>{{ $bahan_baku->stok }}</td>
+                                            <td>{{ $bahan_baku->satuan }}</td>
+                                            <td>{{ $bahan_baku->kategori }}</td>
                                             <td class="text-center">
-                                                <a href="/barang/{{ $barang->id }}" class="btn btn-info btn-sm"><i
+                                                <a href="/bahan_baku/{{ $bahan_baku->id }}" class="btn btn-info btn-sm"><i
                                                         class="ti-pencil-alt"></i></a>
-                                                <button onclick="handleDelete({{ $barang->id }}, 'barang')"
+                                                <button onclick="handleDelete({{ $bahan_baku->id }}, 'bahan_baku')"
                                                     class="btn btn-danger btn-sm">
                                                     <i class="ti-trash"></i>
                                                 </button>
@@ -92,45 +96,73 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Tambah Barang</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Tambah Bahan Baku</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form action="/barang" method="POST" class="form-material">
+                <form action="/bahan_baku" method="POST" class="form-material">
                     @csrf
                     <div class="modal-body">
                         <div class="form-group form-default form-static-label">
-                            <input type="text" name="nama_barang" class="form-control" placeholder="Masukan Nama Barang">
+                            <input type="text" name="nama_barang" class="form-control"
+                                placeholder="Masukan Nama Bahan Baku" value="{{ old('nama_barang') }}">
                             <span class="form-bar"></span>
-                            <label class="float-label">Nama Barang</label>
+                            <label class="float-label text-dark">Nama Bahan Baku</label>
                             @error('nama_barang')
                                 <small class="text-danger">*{{ $message }}</small>
                             @enderror
                         </div>
                         <div class="form-group form-default form-static-label">
-                            <input type="number" name="harga_barang" class="form-control"
-                                placeholder="Masukan Harga Barang">
+                            <select name="satuan" id="satuan" class="form-control">
+                                <option value="" hidden>-- Pilih --</option>
+                                <option value="pcs">pcs</option>
+                                <option value="unit">unit</option>
+                                <option value="gram">gram</option>
+                                <option value="kilogram">kilogram</option>
+                            </select>
                             <span class="form-bar"></span>
-                            <label class="float-label">Harga Barang</label>
-                            @error('harga_barang')
+                            <label class="float-label text-dark">Satuan</label>
+                            @error('satuan')
                                 <small class="text-danger">*{{ $message }}</small>
                             @enderror
                         </div>
                         <div class="form-group form-default form-static-label">
-                            <input type="number" name="stok_barang" class="form-control" placeholder="Masukan Stok Barang">
+                            <input type="number" name="harga" class="form-control" placeholder="Masukan Harga Barang"
+                                value="{{ old('harga') }}">
                             <span class="form-bar"></span>
-                            <label class="float-label">Stok Awal Barang</label>
-                            @error('stok_barang')
+                            <label class="float-label text-dark">Harga Barang</label>
+                            @error('harga')
                                 <small class="text-danger">*{{ $message }}</small>
                             @enderror
                         </div>
                         <div class="form-group form-default form-static-label">
-                            <input type="text" name="status_barang" class="form-control"
-                                placeholder="Masukan Status Barang">
+                            <input type="number" name="biaya_penyimpanan" class="form-control"
+                                placeholder="Masukan Biaya Penyimpanan" value="{{ old('biaya_penyimpanan') }}">
                             <span class="form-bar"></span>
-                            <label class="float-label">Status Barang</label>
-                            @error('status_barang')
+                            <label class="float-label text-dark">Biaya Penyimpanan</label>
+                            @error('biaya_penyimpanan')
+                                <small class="text-danger">*{{ $message }}</small>
+                            @enderror
+                        </div>
+                        <div class="form-group form-default form-static-label">
+                            <input type="number" name="stok" class="form-control" placeholder="Masukan Stok Awal"
+                                value="{{ old('stok') }}">
+                            <span class="form-bar"></span>
+                            <label class="float-label text-dark">Stok Awal Barang</label>
+                            @error('stok')
+                                <small class="text-danger">*{{ $message }}</small>
+                            @enderror
+                        </div>
+                        <div class="form-group form-default form-static-label">
+                            <select name="kategori" id="kategori" class="form-control">
+                                <option value="" hidden>-- Pilih --</option>
+                                <option value="Product">Product</option>
+                                <option value="Packaging">Packaging</option>
+                            </select>
+                            <span class="form-bar"></span>
+                            <label class="float-label text-dark">Kategori</label>
+                            @error('kategori')
                                 <small class="text-danger">*{{ $message }}</small>
                             @enderror
                         </div>

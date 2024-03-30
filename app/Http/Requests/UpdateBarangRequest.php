@@ -27,7 +27,6 @@ class UpdateBarangRequest extends FormRequest
             'harga_barang'   => ['required'],
             'stok_barang'   => ['required'],
             'status_barang'   => ['required'],
-            'kategori_id'   => ['required'],
         ];
     }
 }

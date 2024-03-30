@@ -18,8 +18,7 @@ class BarangController extends Controller
         //
         return view('supplychain.barang.index', [
             'title' => 'Kelola Barang',
-            'barangs'   => Barang::with('kategori')->get(),
-            'kategoris'  => Kategori::all()
+            'barangs'   => Barang::all(),
         ]);
     }
 
@@ -42,7 +41,6 @@ class BarangController extends Controller
             'harga_barang'   => $request->harga_barang,
             'stok_barang'   => $request->stok_barang,
             'status_barang'   => $request->status_barang,
-            'kategori_id'   => $request->kategori_id,
         ]);
 
         Alert::success('Berhasil', 'Barang Berhasil Ditambahkan!');
@@ -66,7 +64,6 @@ class BarangController extends Controller
         return view('supplychain.barang.edit', [
             'title' => 'Edit Barang',
             'barang'    => $barang->findOrFail($id),
-            'kategoris' => Kategori::all()
         ]);
     }
 
@@ -82,7 +79,6 @@ class BarangController extends Controller
             'harga_barang'   => $request->harga_barang,
             'stok_barang'   => $request->stok_barang,
             'status_barang'   => $request->status_barang,
-            'kategori_id'   => $request->kategori_id,
         ]);
         Alert::success('Berhasil', 'Data Barnag Berhasil Diedit!');
         return redirect()->to('/barang');

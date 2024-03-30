@@ -48,6 +48,17 @@
 
     {{-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css"> --}}
     <link rel="stylesheet" href="https://cdn.datatables.net/2.0.3/css/dataTables.bootstrap4.css">
+
+    <style>
+        .table td,
+        .table th {
+            vertical-align: middle !important;
+        }
+
+        .swal2-popup .swal2-modal .swal2-icon-success .swal2-show {
+            z-index: 999999999 !important;
+        }
+    </style>
 </head>
 
 <body>
