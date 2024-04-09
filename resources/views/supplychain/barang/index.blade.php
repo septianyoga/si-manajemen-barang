@@ -52,6 +52,7 @@
                                         <th>Harga Barang</th>
                                         <th>Stok Barang</th>
                                         <th>Status Barang</th>
+                                        <th>Bahan</th>
                                         <th class="text-center">Opsi</th>
                                     </tr>
                                 </thead>
@@ -63,6 +64,16 @@
                                             <td>{{ $barang->harga_barang }}</td>
                                             <td>{{ $barang->stok_barang }}</td>
                                             <td>{{ $barang->status_barang }}</td>
+                                            <td>
+                                                <ul>
+                                                    @foreach ($barang->barang_bahan_baku as $bahan)
+                                                        <li class=""><i
+                                                                class="bi bi-dot"></i>{{ $bahan->bahan_baku->nama_barang }}
+                                                            x {{ $bahan->jumlah }} {{ $bahan->bahan_baku->satuan }}
+                                                        </li>
+                                                    @endforeach
+                                                </ul>
+                                            </td>
                                             <td class="text-center">
                                                 <a href="/barang/{{ $barang->id }}" class="btn btn-info btn-sm"><i
                                                         class="ti-pencil-alt"></i></a>
@@ -117,7 +128,23 @@
                                 <small class="text-danger">*{{ $message }}</small>
                             @enderror
                         </div>
-                        <div class="form-group form-default form-static-label">
+                        <label class="">Bahan yang dibutuhkan</label>
+                        @foreach ($bahan_bakus as $bahan)
+                            <div
+                                class="form-group d-flex align-items-center justify-content-between form-check mb-0 mt-0 pt-0 pb-0">
+                                <div>
+                                    <input type="checkbox" class="form-check-input" name="bahan[]"
+                                        value="{{ $bahan->id }}" id="{{ $bahan->id }}">
+                                    <label class="form-check-label"
+                                        for="{{ $bahan->id }}">{{ $bahan->nama_barang }}</label>
+                                </div>
+                                <div class="d-flex ml-3 w-25 align-items-center ">
+                                    <input type="number" class="form-control" name="jumlah[]" value="1">
+                                    <label>pcs</label>
+                                </div>
+                            </div>
+                        @endforeach
+                        <div class="form-group form-default form-static-label mt-4">
                             <input type="number" name="stok_barang" class="form-control" placeholder="Masukan Stok Barang">
                             <span class="form-bar"></span>
                             <label class="float-label">Stok Awal Barang</label>

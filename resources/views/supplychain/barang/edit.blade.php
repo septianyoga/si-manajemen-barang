@@ -78,6 +78,30 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
+                                    <label class="col-lg-2 col-12 col-form-label">Bahan yang dibutuhkan</label>
+                                    <div class="col-lg-4 col-12">
+                                        @foreach ($bahan_bakus as $bahan)
+                                            <div
+                                                class="form-group d-flex align-items-center justify-content-between form-check">
+                                                <div>
+                                                    <input type="checkbox" class="form-check-input" name="bahan[]"
+                                                        value="{{ $bahan->id }}" id="{{ $bahan->id }}"
+                                                        {{ $barang->barang_bahan_baku->contains('bahan_baku_id', $bahan->id) ? 'checked' : '' }}>
+                                                    <label class="form-check-label"
+                                                        for="{{ $bahan->id }}">{{ $bahan->nama_barang }}</label>
+                                                </div>
+                                                <div class="d-flex ml-3 w-25 align-items-center">
+                                                    <input type="number" class="form-control" name="jumlah[]"
+                                                        value="{{ $barang->barang_bahan_baku->contains('bahan_baku_id', $bahan->id) ? $barang->barang_bahan_baku->where('bahan_baku_id', $bahan->id)->first()->jumlah : '1' }}">
+                                                    <label>pcs</label>
+                                                </div>
+                                            </div>
+                                        @endforeach
+
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
                                     <label class="col-sm-2 col-form-label">Status Barang</label>
                                     <div class="col-sm-10">
                                         <input type="text" class="form-control" name="status_barang"

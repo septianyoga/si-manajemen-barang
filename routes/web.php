@@ -49,7 +49,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/barang', [BarangController::class, 'index'])->name('barang');
         Route::post('/barang', [BarangController::class, 'store']);
         Route::get('/barang/{id}/delete', [BarangController::class, 'destroy'])->name('barang');
-        Route::get('/barang/{id}', [BarangController::class, 'edit'])->name('barang');
+        Route::get('/barang/{barang}', [BarangController::class, 'edit'])->name('barang');
         Route::patch('/barang/{id}', [BarangController::class, 'update']);
 
         Route::get('/supplier', [SupplierController::class, 'index'])->name('supplier');
