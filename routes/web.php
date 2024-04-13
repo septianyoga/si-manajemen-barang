@@ -8,6 +8,7 @@ use App\Http\Controllers\EOQController;
 use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\PemesananController;
+use App\Http\Controllers\PermintaanBarangController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -78,6 +79,10 @@ Route::middleware('auth')->group(function () {
     Route::group(['middleware' => 'userAkses:Finance'], function () {
         Route::get('/approve_pesanan', [ApprovePesananController::class, 'index'])->name('approve_pesanan');
         Route::get('/approve_pesanan/{id}/approve', [ApprovePesananController::class, 'destroy'])->name('approve_pesanan');
+    });
+
+    Route::group(['middleware' => 'userAkses:Sales'], function () {
+        Route::get('/permintaan_barang', [PermintaanBarangController::class, 'index'])->name('permintaan_barang');
     });
 });
 

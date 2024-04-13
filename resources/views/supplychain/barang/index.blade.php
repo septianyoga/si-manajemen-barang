@@ -128,7 +128,8 @@
                                 <small class="text-danger">*{{ $message }}</small>
                             @enderror
                         </div>
-                        <label class="">Bahan yang dibutuhkan</label>
+                        <label class="">Bahan yang dibutuhkan <small>*langsung mengurangi stok bahan
+                                baku.</small></label>
                         @foreach ($bahan_bakus as $bahan)
                             <div
                                 class="form-group d-flex align-items-center justify-content-between form-check mb-0 mt-0 pt-0 pb-0">
@@ -139,13 +140,15 @@
                                         for="{{ $bahan->id }}">{{ $bahan->nama_barang }}</label>
                                 </div>
                                 <div class="d-flex ml-3 w-25 align-items-center ">
-                                    <input type="number" class="form-control" name="jumlah[]" value="1">
+                                    <input type="number" class="form-control" name="jumlah[]" value="1" min="1"
+                                        max="{{ $bahan->stok }}">
                                     <label>pcs</label>
                                 </div>
                             </div>
                         @endforeach
                         <div class="form-group form-default form-static-label mt-4">
-                            <input type="number" name="stok_barang" class="form-control" placeholder="Masukan Stok Barang">
+                            <input type="number" name="stok_barang" class="form-control"
+                                placeholder="Masukan Stok Barang">
                             <span class="form-bar"></span>
                             <label class="float-label">Stok Awal Barang</label>
                             @error('stok_barang')

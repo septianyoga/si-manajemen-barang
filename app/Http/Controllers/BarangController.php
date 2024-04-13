@@ -55,6 +55,11 @@ class BarangController extends Controller
                     'bahan_baku_id' => $bahan_id,
                     'jumlah'    => $request->jumlah[$key]
                 ]);
+                // update stock
+                $bahan = BahanBaku::findOrFail($bahan_id);
+                $bahan->update([
+                    'stok' => $bahan->stok - $request->jumlah[$key]
+                ]);
             }
         }
 
@@ -93,6 +98,9 @@ class BarangController extends Controller
     public function update(UpdateBarangRequest $request, Barang $barang, string $id)
     {
         $barang_baku = $barang->findOrFail($id);
+
+        // return $barang_baku->barang_bahan_baku;
+
         $barang_baku->update([
             'nama_barang'   => $request->nama_barang,
             'harga_barang'   => $request->harga_barang,
@@ -101,14 +109,26 @@ class BarangController extends Controller
         ]);
 
         if ($request->bahan) {
+            // kembaliin stok awal bahan sebelum dihapus
+            foreach ($barang_baku->barang_bahan_baku as $brg) {
+                $bahan = BahanBaku::findOrFail($brg->bahan_baku_id);
+                $bahan->update([
+                    'stok'  => $bahan->stok + $brg->jumlah
+                ]);
+            }
             // Hapus entri barang_bahan_baku yang terkait dengan barang yang sedang diupdate
             $barang_baku->barang_bahan_baku()->delete();
+
             foreach ($request->bahan as $key => $bahan_id) {
                 // Tambahkan kembali entri barang_bahan_baku yang baru
                 BarangBahanBaku::create([
                     'barang_id' => $barang_baku->id,
                     'bahan_baku_id' => $bahan_id,
                     'jumlah' => $request->jumlah[$key]
+                ]);
+                $bhn = BahanBaku::findOrFail($bahan_id);
+                $bhn->update([
+                    'stok' => $bhn->stok - $request->jumlah[$key]
                 ]);
             }
         }
@@ -126,6 +146,14 @@ class BarangController extends Controller
     {
         //
         $cek = $barang->findOrFail($id);
+        // kembaliin stok bahannya dulu
+        foreach ($cek->barang_bahan_baku as $brg) {
+            $bahan = BahanBaku::findOrFail($brg->bahan_baku_id);
+            $bahan->update([
+                'stok'  => $bahan->stok + $brg->jumlah
+            ]);
+        }
+        $cek->barang_bahan_baku()->delete();
         $cek->delete();
         Alert::success('Berhasil', 'Data Barang Berhasil Dihapus!');
         return redirect()->to('/barang');
