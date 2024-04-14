@@ -48,6 +48,20 @@ class BarangController extends Controller
         ]);
 
         if ($request->bahan) {
+
+            // Membersihkan array "jumlah" dengan menghilangkan entri yang memiliki nilai "0"
+            $jumlah_clean = array_filter($request->jumlah, function ($value, $key) {
+                return $value != "0";
+            }, ARRAY_FILTER_USE_BOTH);
+
+            // Mengatur ulang kunci array untuk memastikan urutan kunci yang benar
+            $jumlah_clean = array_values($jumlah_clean);
+
+            // Update array "jumlah" dengan data yang sudah dibersihkan
+            $request->merge([
+                'jumlah' => $jumlah_clean
+            ]);
+
             foreach ($request->bahan as $key => $bahan_id) {
                 # code...
                 BarangBahanBaku::create([
@@ -119,7 +133,23 @@ class BarangController extends Controller
             // Hapus entri barang_bahan_baku yang terkait dengan barang yang sedang diupdate
             $barang_baku->barang_bahan_baku()->delete();
 
+            // Membersihkan array "jumlah" dengan menghilangkan entri yang memiliki nilai "0"
+            $jumlah_clean = array_filter($request->jumlah, function ($value, $key) {
+                return $value != "0";
+            }, ARRAY_FILTER_USE_BOTH);
+
+            // Mengatur ulang kunci array untuk memastikan urutan kunci yang benar
+            $jumlah_clean = array_values($jumlah_clean);
+
+            // Update array "jumlah" dengan data yang sudah dibersihkan
+            $request->merge([
+                'jumlah' => $jumlah_clean
+            ]);
+
+            // dd($request->all());
+
             foreach ($request->bahan as $key => $bahan_id) {
+
                 // Tambahkan kembali entri barang_bahan_baku yang baru
                 BarangBahanBaku::create([
                     'barang_id' => $barang_baku->id,
@@ -131,6 +161,7 @@ class BarangController extends Controller
                     'stok' => $bhn->stok - $request->jumlah[$key]
                 ]);
             }
+            // dd($request->all());
         }
 
         Alert::success('Berhasil', 'Barang Berhasil Diubah!');

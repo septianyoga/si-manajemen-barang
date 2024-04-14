@@ -74,6 +74,9 @@ Route::middleware('auth')->group(function () {
 
         Route::get('/eoq', [EOQController::class, 'index'])->name('eoq');
         Route::get('/eoq/{id}', [EOQController::class, 'show'])->name('eoq');
+
+        Route::get('/approve_permintaan', [PermintaanBarangController::class, 'approvePermintaan'])->name('approve_permintaan');
+        Route::get('/approve_permintaan/{id}', [PermintaanBarangController::class, 'prosesApprove'])->name('approve_permintaan');
     });
 
     Route::group(['middleware' => 'userAkses:Finance'], function () {
@@ -83,6 +86,7 @@ Route::middleware('auth')->group(function () {
 
     Route::group(['middleware' => 'userAkses:Sales'], function () {
         Route::get('/permintaan_barang', [PermintaanBarangController::class, 'index'])->name('permintaan_barang');
+        Route::post('/permintaan_barang', [PermintaanBarangController::class, 'store'])->name('permintaan_barang');
     });
 });
 

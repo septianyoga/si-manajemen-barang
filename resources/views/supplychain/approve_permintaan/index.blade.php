@@ -91,13 +91,13 @@
                                                 </div>
                                             </td>
                                             <td class="text-center">
-                                                @if ($permintaan->status_permintaan == 'Dikonfirmasi')
+                                                @if ($permintaan->status_permintaan == 'Menunggu Approve')
                                                     <button onclick="handleConfirm({{ $permintaan->id }})"
                                                         class="btn btn-outline-success"><i
-                                                            class="icofont icofont-check-circled"></i>Selesaikan</button>
+                                                            class="icofont icofont-check-circled"></i>Approve</button>
                                                 @else
-                                                    <button class="btn btn-outline-warning btn-disabled disabled"><i
-                                                            class="icofont icofont-check-circled"></i>Selesaikan</button>
+                                                    <button class="btn btn-outline-success btn-disabled disabled"><i
+                                                            class="icofont icofont-check-circled"></i>Approve</button>
                                                 @endif
                                             </td>
                                         </tr>
@@ -185,8 +185,8 @@
     <script>
         function handleConfirm(id) {
             Swal.fire({
-                title: "Yakin ingin konfirmasi pesanan kepada Supplier?",
-                text: "Anda tidak bisa membatalkannya!",
+                title: "Yakin ingin Approve Permintaan Barang ini?",
+                text: "Stok barang akan berkurang setelah approve!",
                 icon: "warning",
                 showCancelButton: true,
                 confirmButtonColor: "#3085d6",
@@ -194,7 +194,7 @@
                 confirmButtonText: "Ya, Konfirmasi!"
             }).then((result) => {
                 if (result.isConfirmed) {
-                    document.location.href = '/permintaan_barang/konfirmasi/' + id;
+                    document.location.href = '/approve_permintaan/' + id;
                 }
             });
         }

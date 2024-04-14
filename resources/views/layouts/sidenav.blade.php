@@ -127,6 +127,13 @@
                         <span class="pcoded-mcaret"></span>
                     </a>
                 </li>
+                <li class="{{ $title == 'Approve Permintaan Barang' ? 'active' : '' }}">
+                    <a href="/approve_permintaan" class="waves-effect waves-dark">
+                        <span class="pcoded-micon"><i class="icofont icofont-check-circled"></i><b>D</b></span>
+                        <span class="pcoded-mtext">Approve Permintaan</span>
+                        <span class="pcoded-mcaret"></span>
+                    </a>
+                </li>
             @elseif(Auth::user()->role == 'Sales')
                 <li class="{{ $title == 'Permintaan Barang' ? 'active' : '' }}">
                     <a href="/permintaan_barang" class="waves-effect waves-dark">

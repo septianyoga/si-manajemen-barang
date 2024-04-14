@@ -140,15 +140,14 @@
                                         for="{{ $bahan->id }}">{{ $bahan->nama_barang }}</label>
                                 </div>
                                 <div class="d-flex ml-3 w-25 align-items-center ">
-                                    <input type="number" class="form-control" name="jumlah[]" value="1" min="1"
+                                    <input type="number" class="form-control" name="jumlah[]" value="0"
                                         max="{{ $bahan->stok }}">
                                     <label>pcs</label>
                                 </div>
                             </div>
                         @endforeach
                         <div class="form-group form-default form-static-label mt-4">
-                            <input type="number" name="stok_barang" class="form-control"
-                                placeholder="Masukan Stok Barang">
+                            <input type="number" name="stok_barang" class="form-control" placeholder="Masukan Stok Barang">
                             <span class="form-bar"></span>
                             <label class="float-label">Stok Awal Barang</label>
                             @error('stok_barang')
