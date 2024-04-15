@@ -25,7 +25,6 @@ class UpdateBarangRequest extends FormRequest
             //
             'nama_barang'   => ['required'],
             'harga_barang'   => ['required'],
-            'stok_barang'   => ['required'],
             'status_barang'   => ['required'],
         ];
     }

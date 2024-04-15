@@ -52,6 +52,8 @@ Route::middleware('auth')->group(function () {
         Route::get('/barang/{id}/delete', [BarangController::class, 'destroy'])->name('barang');
         Route::get('/barang/{barang}', [BarangController::class, 'edit'])->name('barang');
         Route::patch('/barang/{id}', [BarangController::class, 'update']);
+        Route::post('/barang/tambahi/{id}', [BarangController::class, 'tambahStok']);
+        Route::post('/barang/kurangi/{id}', [BarangController::class, 'kurangStok']);
 
         Route::get('/supplier', [SupplierController::class, 'index'])->name('supplier');
         Route::post('/supplier', [SupplierController::class, 'store']);
@@ -71,12 +73,16 @@ Route::middleware('auth')->group(function () {
         Route::get('/pemesanan/{id}', [PemesananController::class, 'edit'])->name('pemesanan');
         Route::patch('/pemesanan/{id}', [PemesananController::class, 'update']);
         Route::get('/pemesanan/konfirmasi/{id}', [PemesananController::class, 'konfirmasi'])->name('pemesanan');
+        Route::get('/pemesanan/selesai/{id}', [PemesananController::class, 'selesai'])->name('pemesanan');
 
         Route::get('/eoq', [EOQController::class, 'index'])->name('eoq');
         Route::get('/eoq/{id}', [EOQController::class, 'show'])->name('eoq');
 
         Route::get('/approve_permintaan', [PermintaanBarangController::class, 'approvePermintaan'])->name('approve_permintaan');
         Route::get('/approve_permintaan/{id}', [PermintaanBarangController::class, 'prosesApprove'])->name('approve_permintaan');
+
+        Route::get('/barang_masuk', [BarangController::class, 'barangMasuk'])->name('barang_masuk');
+        Route::get('/barang_keluar', [BarangController::class, 'barangKeluar'])->name('barang_keluar');
     });
 
     Route::group(['middleware' => 'userAkses:Finance'], function () {
@@ -87,6 +93,7 @@ Route::middleware('auth')->group(function () {
     Route::group(['middleware' => 'userAkses:Sales'], function () {
         Route::get('/permintaan_barang', [PermintaanBarangController::class, 'index'])->name('permintaan_barang');
         Route::post('/permintaan_barang', [PermintaanBarangController::class, 'store'])->name('permintaan_barang');
+        Route::get('/permintaan_barang/{id}', [PermintaanBarangController::class, 'selesai'])->name('permintaan_barang');
     });
 });
 

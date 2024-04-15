@@ -93,11 +93,11 @@
                                             <td class="text-center">
                                                 @if ($permintaan->status_permintaan == 'Dikonfirmasi')
                                                     <button onclick="handleConfirm({{ $permintaan->id }})"
-                                                        class="btn btn-outline-success"><i
+                                                        class="btn btn-outline-info"><i
                                                             class="icofont icofont-check-circled"></i>Selesaikan</button>
                                                 @else
-                                                    <button class="btn btn-outline-warning btn-disabled disabled"><i
-                                                            class="icofont icofont-check-circled"></i>Selesaikan</button>
+                                                    <button class="btn btn-outline-success btn-disabled disabled"><i
+                                                            class="icofont icofont-check-circled"></i>Selesai</button>
                                                 @endif
                                             </td>
                                         </tr>
@@ -185,7 +185,7 @@
     <script>
         function handleConfirm(id) {
             Swal.fire({
-                title: "Yakin ingin konfirmasi pesanan kepada Supplier?",
+                title: "Yakin ingin menyelesaikan permintaan?",
                 text: "Anda tidak bisa membatalkannya!",
                 icon: "warning",
                 showCancelButton: true,
@@ -194,7 +194,7 @@
                 confirmButtonText: "Ya, Konfirmasi!"
             }).then((result) => {
                 if (result.isConfirmed) {
-                    document.location.href = '/permintaan_barang/konfirmasi/' + id;
+                    document.location.href = '/permintaan_barang/' + id;
                 }
             });
         }

@@ -88,6 +88,14 @@
                                                     <button onclick="handleConfirm({{ $pemesanan->id }})"
                                                         class="btn btn-outline-warning"><i
                                                             class="icofont icofont-check-circled"></i>Konfirmasi</button>
+                                                @elseif($pemesanan->status == 'Dalam Proses')
+                                                    <button onclick="handleDiterima({{ $pemesanan->id }})"
+                                                        class="btn btn-outline-info"><i
+                                                            class="icofont icofont-check-circled"></i>Pesanan
+                                                        Diterima</button>
+                                                @elseif($pemesanan->status == 'Selesai')
+                                                    <button class="btn btn-outline-success btn-disabled disabled"><i
+                                                            class="icofont icofont-check-circled"></i>Selesai</button>
                                                 @else
                                                     <button class="btn btn-outline-warning btn-disabled disabled"><i
                                                             class="icofont icofont-check-circled"></i>Konfirmasi</button>
@@ -199,8 +207,8 @@
         function handleConfirm(id) {
             Swal.fire({
                 title: "Yakin ingin konfirmasi pesanan kepada Supplier?",
-                text: "Anda tidak bisa membatalkannya!",
-                icon: "warning",
+                text: "Konfirmasi akan dikirim otomatis melalui whatsapp!",
+                icon: "info",
                 showCancelButton: true,
                 confirmButtonColor: "#3085d6",
                 cancelButtonColor: "#d33",
@@ -208,6 +216,22 @@
             }).then((result) => {
                 if (result.isConfirmed) {
                     document.location.href = '/pemesanan/konfirmasi/' + id;
+                }
+            });
+        }
+
+        function handleDiterima(id) {
+            Swal.fire({
+                title: "Yakin ingin menyelesaikan pemesanan?",
+                text: "Pesanan diselesaikan artinya pesanan sudah anda terima dan akan menambahkan stok barang!",
+                icon: "info",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Ya, Selesaikan!"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    document.location.href = '/pemesanan/selesai/' + id;
                 }
             });
         }

@@ -100,7 +100,7 @@ class PemesananController extends Controller
             CURLOPT_CUSTOMREQUEST => 'POST',
             CURLOPT_POSTFIELDS => array(
                 'target' => '0895330930059',
-                'message' => 'Halo ' . $pemesanan->supplier->nama_supplier . '! Kami telah melakukan pemesanan barang kepada anda. Berikut adalah link Purchase Order untuk informasi lebih detail dari barang yang dipesan.\n ' . asset('po/contoh_po.pdf'),
+                'message' => 'Halo ' . $pemesanan->supplier->nama_supplier . '! Kami telah melakukan pemesanan barang kepada anda. Berikut adalah link Purchase Order untuk informasi lebih detail dari barang yang dipesan. ' . asset('po/contoh_po.pdf'),
                 'countryCode' => '62', //optional
             ),
             CURLOPT_HTTPHEADER => array(
@@ -112,5 +112,29 @@ class PemesananController extends Controller
 
         curl_close($curl);
         echo $response;
+
+        $pemesanan->update([
+            'status'    => 'Dalam Proses'
+        ]);
+
+        Alert::success('Berhasil', 'Berhasil Konfirmasi Supplier!');
+        return redirect()->to('/pemesanan');
+    }
+
+    public function selesai(string $id)
+    {
+        $pemesanan = Pemesanan::findOrFail($id);
+        $pemesanan->update([
+            'status'    => 'Selesai',
+            'tgl_masuk' => date('Y-m-d')
+        ]);
+
+        $bahan = BahanBaku::findOrFail($pemesanan->bahan_baku_id);
+        $bahan->update([
+            'stok'  => $bahan->stok + $pemesanan->jumlah_barang
+        ]);
+
+        Alert::success('Berhasil', 'Pemesanan Berhasil Diselesaikan!');
+        return redirect()->to('/pemesanan');
     }
 }

@@ -48,31 +48,31 @@
                 </li>
             @elseif(Auth::user()->role == 'Supply Chain')
                 <li
-                    class="pcoded-hasmenu {{ $title == 'Kelola Barang' || $title == 'Kelola Kategori' || $title == 'Kelola Bahan Baku' ? 'active pcoded-trigger' : '' }}">
+                    class="pcoded-hasmenu {{ $title == 'Kelola Barang' || $title == 'Kelola Kategori' || $title == 'Kelola Bahan Baku' || $title == 'Barang Masuk' || $title == 'Barang Keluar' ? 'active pcoded-trigger' : '' }}">
                     <a href="javascript:void(0)" class="waves-effect waves-dark">
                         <span class="pcoded-micon"><i class="ti-package"></i></span>
                         <span class="pcoded-mtext">Barang</span>
                         <span class="pcoded-mcaret"></span>
                     </a>
                     <ul class="pcoded-submenu">
-                        <li class="{{ $title == 'Kelola Barang' ? 'active' : '' }}">
-                            <a href="/barang" class="waves-effect waves-dark">
-                                <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-                                <span class="pcoded-mtext"><i class="bi bi-box-seam"></i> Stok Barang</span>
-                                <span class="pcoded-mcaret"></span>
-                            </a>
-                        </li>
-                        <li class=" ">
-                            <a href="breadcrumb.html" class="waves-effect waves-dark">
+                        <li class="{{ $title == 'Barang Masuk' ? 'active' : '' }}">
+                            <a href="/barang_masuk" class="waves-effect waves-dark">
                                 <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
                                 <span class="pcoded-mtext"><i class="bi bi-box-arrow-in-down"></i> Barang Masuk</span>
                                 <span class="pcoded-mcaret"></span>
                             </a>
                         </li>
-                        <li class=" ">
-                            <a href="button.html" class="waves-effect waves-dark">
+                        <li class="{{ $title == 'Barang Keluar' ? 'active' : '' }}">
+                            <a href="/barang_keluar" class="waves-effect waves-dark">
                                 <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
                                 <span class="pcoded-mtext"><i class="bi bi-box-arrow-up"></i> Barang Keluar</span>
+                                <span class="pcoded-mcaret"></span>
+                            </a>
+                        </li>
+                        <li class="{{ $title == 'Kelola Barang' ? 'active' : '' }}">
+                            <a href="/barang" class="waves-effect waves-dark">
+                                <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+                                <span class="pcoded-mtext"><i class="bi bi-box-seam"></i> Stok Barang</span>
                                 <span class="pcoded-mcaret"></span>
                             </a>
                         </li>
@@ -83,13 +83,6 @@
                                 <span class="pcoded-mcaret"></span>
                             </a>
                         </li>
-                        {{-- <li class="{{ $title == 'Kelola Kategori' ? 'active' : '' }}">
-                        <a href="/kategori" class="waves-effect waves-dark">
-                            <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-                            <span class="pcoded-mtext"><i class="bi bi-tag"></i> Kategori Barang</span>
-                            <span class="pcoded-mcaret"></span>
-                        </a>
-                    </li> --}}
                     </ul>
                 </li>
                 <li class="{{ $title == 'Pemesanan' ? 'active' : '' }}">

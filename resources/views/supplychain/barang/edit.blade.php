@@ -69,12 +69,18 @@
                                 </div>
                                 <div class="form-group row">
                                     <label class="col-sm-2 col-form-label">Stok Barang</label>
-                                    <div class="col-sm-10">
+                                    <div class="col-sm-3">
                                         <input type="number" class="form-control" name="stok_barang"
-                                            placeholder="Masukan Stok Barang" value="{{ $barang->stok_barang }}">
+                                            placeholder="Masukan Stok Barang" value="{{ $barang->stok_barang }}" disabled>
                                         @error('stok_barang')
                                             <small class="text-danger">*{{ $message }}</small>
                                         @enderror
+                                    </div>
+                                    <div class="col-sm-7">
+                                        <button type="button" class="btn btn-info btn-sm" data-toggle="modal"
+                                            data-target="#tambahstok">Tambah Stok</button>
+                                        <button type="button" class="btn btn-warning btn-sm" data-toggle="modal"
+                                            data-target="#kurangistok">Kurangi Stok</button>
                                     </div>
                                 </div>
                                 <div class="form-group row">
@@ -138,4 +144,64 @@
             });
         </script>
     @endif
+
+    <div class="modal fade" id="tambahstok" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Tambah Stok Barang</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form action="/barang/tambahi/{{ $barang->id }}" method="POST" class="form-material">
+                    @csrf
+                    <div class="modal-body">
+                        <div class="form-group form-default form-static-label">
+                            <input type="number" name="jumlah" class="form-control"
+                                placeholder="Masukan Stok Penambahan" required>
+                            <span class="form-bar"></span>
+                            <label class="float-label">Jumlah Tambah Barang</label>
+                        </div>
+                        <small>*Akan langsung mengurangi stok bahan</small>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Tambah</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="kurangistok" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Kurangi Stok Barang</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form action="/barang/kurangi/{{ $barang->id }}" method="POST" class="form-material">
+                    @csrf
+                    <div class="modal-body">
+                        <div class="form-group form-default form-static-label">
+                            <input type="number" name="jumlah" class="form-control"
+                                placeholder="Masukan Stok Pengurangan">
+                            <span class="form-bar"></span>
+                            <label class="float-label">Jumlah Pengurangan Barang</label>
+                        </div>
+                        <small>*Akan langsung mengembalikan stok bahan</small>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Kurangi</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 @endsection

@@ -128,7 +128,8 @@ class PermintaanBarangController extends Controller
 
     public function prosesApprove(string $id)
     {
-        $permintaan = Permintaan::with('permintaan_barang')->findOrFail($id);
+        $permintaan = Permintaan::with('permintaan_barang.barang')->findOrFail($id);
+        // return $permintaan;
         $permintaan->update([
             'status_permintaan' => 'Dikonfirmasi'
         ]);
@@ -141,5 +142,15 @@ class PermintaanBarangController extends Controller
 
         Alert::success('Berhasil', 'Approve Permintaan Barang Berhasil!');
         return redirect()->to('/approve_permintaan');
+    }
+
+    public function selesai(string $id)
+    {
+        $permintaan = Permintaan::findOrFail($id);
+        $permintaan->update([
+            'status_permintaan' => 'Selesai'
+        ]);
+        Alert::success('Berhasil', 'Permintaan Barang Berhasil Diselesaikan!');
+        return redirect()->to('/permintaan_barang');
     }
 }

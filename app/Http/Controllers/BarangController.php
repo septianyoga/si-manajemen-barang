@@ -8,6 +8,9 @@ use App\Http\Requests\UpdateBarangRequest;
 use App\Models\BahanBaku;
 use App\Models\BarangBahanBaku;
 use App\Models\Kategori;
+use App\Models\Pemesanan;
+use App\Models\Permintaan;
+use Illuminate\Http\Request;
 use RealRashid\SweetAlert\Facades\Alert;
 
 class BarangController extends Controller
@@ -188,5 +191,58 @@ class BarangController extends Controller
         $cek->delete();
         Alert::success('Berhasil', 'Data Barang Berhasil Dihapus!');
         return redirect()->to('/barang');
+    }
+
+    public function tambahStok(Request $request, string $id)
+    {
+        $barang = Barang::with('barang_bahan_baku.bahan_baku')->findOrFail($id);
+        foreach ($barang->barang_bahan_baku as $key => $bahan) {
+            # code...
+            $baku = BahanBaku::findOrFail($bahan->bahan_baku_id);
+            $baku->update([
+                'stok'  => $baku->stok - ($request->jumlah * $bahan->jumlah)
+            ]);
+        }
+        $barang->update([
+            'stok_barang'   => $barang->stok_barang + $request->jumlah
+        ]);
+        Alert::success('Berhasil', 'Stok Barang Berhasil Ditambah!');
+        return redirect()->to('/barang/' . $id);
+    }
+
+    public function kurangStok(Request $request, string $id)
+    {
+        $barang = Barang::with('barang_bahan_baku.bahan_baku')->findOrFail($id);
+        foreach ($barang->barang_bahan_baku as $key => $bahan) {
+            # code...
+            $baku = BahanBaku::findOrFail($bahan->bahan_baku_id);
+            $baku->update([
+                'stok'  => $baku->stok + ($request->jumlah * $bahan->jumlah)
+            ]);
+        }
+        $barang->update([
+            'stok_barang'   => $barang->stok_barang - $request->jumlah
+        ]);
+        Alert::success('Berhasil', 'Stok Barang Berhasil Dikurangi!');
+        return redirect()->to('/barang/' . $id);
+        $barang = Barang::with('barang_bahan_baku')->findOrFail($id);
+    }
+
+    public function barangMasuk()
+    {
+        // return Pemesanan::with('bahan_baku', 'supplier')->where('status', 'Selesai')->get();
+        return view('supplychain.barang_masuk.index', [
+            'title' => 'Barang Masuk',
+            'barang_masuk'  => Pemesanan::with('bahan_baku', 'supplier')->where('status', 'Selesai')->get()
+        ]);
+    }
+
+    public function barangKeluar()
+    {
+        // return Permintaan::with('permintaan_barang.barang')->where('status_permintaan', 'Selesai')->get();
+        return view('supplychain.barang_keluar.index', [
+            'title' => 'Barang Keluar',
+            'barang_keluar' => Permintaan::with('permintaan_barang.barang')->where('status_permintaan', 'Selesai')->get()
+        ]);
     }
 }
