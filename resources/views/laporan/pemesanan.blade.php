@@ -15,7 +15,7 @@
                         <li class="breadcrumb-item">
                             <a href="/dashboard"> <i class="fa fa-home"></i> </a>
                         </li>
-                        <li class="breadcrumb-item"><a href="/pemesanan">{{ $title }}</a>
+                        <li class="breadcrumb-item"><a href="/laporan_pemesanan">{{ $title }}</a>
                         </li>
                     </ul>
                 </div>
@@ -34,6 +34,9 @@
                         <div class="card-header">
                             <h5>Data Pemesanan</h5>
                             <div class="card-header-right d-flex align-items-center ">
+                                <a href="/laporan_pemesanan/cetak" class="btn btn-primary">
+                                    <i class="ti-printer text-white "></i>
+                                    Print</a>
                                 <ul class="list-unstyled card-option">
                                     <li><i class="fa fa fa-wrench open-card-option"></i></li>
                                     <li><i class="fa fa-window-maximize full-card"></i></li>
@@ -52,7 +55,6 @@
                                         <th>Total Harga Pemesanan</th>
                                         <th>Tanggal Pemesanan</th>
                                         <th>Status</th>
-                                        <th class="text-center">Opsi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -75,17 +77,6 @@
                                                     @endif
                                                 </div>
                                             </td>
-                                            <td class="text-center">
-                                                @if ($pemesanan->status != 'Menunggu Approve')
-                                                    <button onclick="confirmApprove({{ $pemesanan->id }})"
-                                                        class="btn btn-success btn-disabled disabled"><i
-                                                            class="icofont icofont-check-circled"></i>Approved</button>
-                                                @else
-                                                    <button onclick="confirmApprove({{ $pemesanan->id }})"
-                                                        class="btn btn-outline-success"><i
-                                                            class="icofont icofont-check-circled"></i>Approve</button>
-                                                @endif
-                                            </td>
                                         </tr>
                                     @endforeach
                                 </tbody>
@@ -100,23 +91,5 @@
         </div>
         <!-- Main-body end -->
     </div>
-
-    <script src="{{ asset('vendor/sweetalert/sweetalert.all.js') }}"></script>
-    <script>
-        function confirmApprove(id) {
-            Swal.fire({
-                title: "Yakin ingin approve pesanan ini?",
-                text: "Pencatatan Keuangan akan otomatis ditambahkan!",
-                icon: "warning",
-                showCancelButton: true,
-                confirmButtonColor: "#3085d6",
-                cancelButtonColor: "#d33",
-                confirmButtonText: "Yes, Approve!"
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    document.location.href = '/approve_pesanan/' + id + '/approve';
-                }
-            });
-        }
-    </script>
+    {{-- modal --}}
 @endsection

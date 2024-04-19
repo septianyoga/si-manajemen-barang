@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Barang;
+use App\Models\Keuangan;
 use App\Models\Permintaan;
 use App\Models\PermintaanBarang;
 use Illuminate\Http\Request;
@@ -139,6 +140,15 @@ class PermintaanBarangController extends Controller
                 'stok_barang'   => $barang->stok_barang - $minta->jumlah_barang
             ]);
         }
+
+        $keuangan = [
+            'keterangan' => 'Permintaan Barang',
+            'kategori'  => 'Pemasukan',
+            'biaya' => $permintaan->total_harga,
+            'permintaan_id'  => $id
+        ];
+
+        Keuangan::create($keuangan);
 
         Alert::success('Berhasil', 'Approve Permintaan Barang Berhasil!');
         return redirect()->to('/approve_permintaan');

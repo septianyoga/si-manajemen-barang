@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Keuangan;
 use App\Models\Pemesanan;
 use Illuminate\Http\Request;
 use RealRashid\SweetAlert\Facades\Alert;
@@ -66,10 +67,21 @@ class ApprovePesananController extends Controller
     public function destroy(string $id)
     {
         //
-        $pesanan = Pemesanan::findOrFail($id);
+        $pesanan = Pemesanan::with('bahan_baku')->findOrFail($id);
         $pesanan->update([
             'status'    => 'Menunggu Konfirmasi'
         ]);
+
+        // insert ke tbl keuangan
+        $keuangan = [
+            'keterangan' => 'Pemesanan Bahan Baku ' . $pesanan->bahan_baku->nama_barang,
+            'kategori'  => 'Pengeluaran',
+            'biaya' => $pesanan->total_harga,
+            'pemesanan_id'  => $id
+        ];
+
+        Keuangan::create($keuangan);
+
         Alert::success('Berhasil', 'Pesanan Berhasil Diapprove!');
         return redirect()->to('/approve_pesanan');
     }

@@ -118,7 +118,7 @@
         function handleConfirm(id) {
             Swal.fire({
                 title: "Yakin ingin Approve Permintaan Barang ini?",
-                text: "Stok barang akan berkurang setelah approve!",
+                text: "Stok barang akan berkurang dan pencatatan keuangan akan bertambah setelah approve!",
                 icon: "warning",
                 showCancelButton: true,
                 confirmButtonColor: "#3085d6",

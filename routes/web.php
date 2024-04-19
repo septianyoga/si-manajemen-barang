@@ -6,10 +6,13 @@ use App\Http\Controllers\BarangController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\EOQController;
 use App\Http\Controllers\KategoriController;
+use App\Http\Controllers\KeuanganController;
+use App\Http\Controllers\LaporanController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\PemesananController;
 use App\Http\Controllers\PermintaanBarangController;
 use App\Http\Controllers\SafetyStockController;
+use App\Http\Controllers\StockOpnameController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -47,6 +50,19 @@ Route::middleware('auth')->group(function () {
         Route::patch('/users/{id}', [UserController::class, 'update']);
     });
 
+    Route::group(['middleware' => 'userAkses:Direktur,Supply Chain'], function () {
+        Route::get('/laporan_pemesanan', [LaporanController::class, 'laporanPemesanan'])->name('laporan_pemesanan');
+        Route::get('/laporan_pemesanan/cetak', [LaporanController::class, 'cetakPemesanan'])->name('laporan_pemesanan');
+        Route::get('/laporan_permintaan', [LaporanController::class, 'laporanPermintaan'])->name('laporan_permintaan');
+        Route::get('/laporan_permintaan/cetak', [LaporanController::class, 'cetakPermintaan'])->name('laporan_permintaan');
+        Route::get('/laporan_barang', [LaporanController::class, 'laporanBarang'])->name('laporan_barang');
+        Route::get('/laporan_barang/cetak', [LaporanController::class, 'cetakBarang'])->name('laporan_barang');
+        Route::get('/laporan_bahan_baku', [LaporanController::class, 'laporanBahanBaku'])->name('laporan_bahan_baku');
+        Route::get('/laporan_bahan_baku/cetak', [LaporanController::class, 'cetakBahanBaku'])->name('laporan_bahan_baku');
+        Route::get('/laporan_stock_opname', [LaporanController::class, 'laporanStockOpname'])->name('laporan_stock_opname');
+        Route::get('/laporan_stock_opname/cetak', [LaporanController::class, 'cetakStockOpname'])->name('laporan_stock_opname');
+    });
+
     Route::group(['middleware' => 'userAkses:Supply Chain'], function () {
         Route::get('/barang', [BarangController::class, 'index'])->name('barang');
         Route::post('/barang', [BarangController::class, 'store']);
@@ -76,7 +92,6 @@ Route::middleware('auth')->group(function () {
         Route::get('/pemesanan/konfirmasi/{id}', [PemesananController::class, 'konfirmasi'])->name('pemesanan');
         Route::get('/pemesanan/selesai/{id}', [PemesananController::class, 'selesai'])->name('pemesanan');
 
-        Route::get('/cetak_po/{id}', [PemesananController::class, 'cetakPO'])->name('cetak_po');
 
         Route::get('/eoq', [EOQController::class, 'index'])->name('eoq');
         Route::get('/eoq/{id}', [EOQController::class, 'show'])->name('eoq');
@@ -90,11 +105,18 @@ Route::middleware('auth')->group(function () {
         Route::get('/safety_stock', [SafetyStockController::class, 'index'])->name('safety_stock');
         Route::post('/safety_stock/hitung/{id}', [SafetyStockController::class, 'update']);
         Route::get('/safety_stock/rop/{id}', [SafetyStockController::class, 'hitungROP']);
+
+        Route::get('/stock_opname', [StockOpnameController::class, 'index'])->name('stock_opname');
+        Route::post('/stock_opname', [StockOpnameController::class, 'store']);
+        Route::post('/stock_opname/{id}', [StockOpnameController::class, 'update']);
+        Route::get('/stock_opname/{id}/delete', [StockOpnameController::class, 'destroy'])->name('stock_opname');
     });
 
     Route::group(['middleware' => 'userAkses:Finance'], function () {
         Route::get('/approve_pesanan', [ApprovePesananController::class, 'index'])->name('approve_pesanan');
         Route::get('/approve_pesanan/{id}/approve', [ApprovePesananController::class, 'destroy'])->name('approve_pesanan');
+
+        Route::get('/keuangan', [KeuanganController::class, 'index'])->name('keuangan');
     });
 
     Route::group(['middleware' => 'userAkses:Sales'], function () {
@@ -105,3 +127,4 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::get('/logout', [LoginController::class, 'destroy']);
+Route::get('/cetak_po/{id}', [PemesananController::class, 'cetakPO'])->name('cetak_po');

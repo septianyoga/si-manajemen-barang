@@ -120,6 +120,13 @@
                         <span class="pcoded-mcaret"></span>
                     </a>
                 </li>
+                <li class="{{ $title == 'Kelola Stock Opname' ? 'active' : '' }}">
+                    <a href="/stock_opname" class="waves-effect waves-dark">
+                        <span class="pcoded-micon"><i class="icofont icofont-prescription"></i><b>D</b></span>
+                        <span class="pcoded-mtext">Stock Opname</span>
+                        <span class="pcoded-mcaret"></span>
+                    </a>
+                </li>
             @elseif(Auth::user()->role == 'Sales')
                 <li class="{{ $title == 'Permintaan Barang' ? 'active' : '' }}">
                     <a href="/permintaan_barang" class="waves-effect waves-dark">
@@ -137,11 +144,62 @@
                     </a>
                 </li>
                 <li class="{{ $title == 'Keuangan' ? 'active' : '' }}">
-                    <a href="/approve_pesanan" class="waves-effect waves-dark">
+                    <a href="/keuangan" class="waves-effect waves-dark">
                         <span class="pcoded-micon"><i class="bi bi-currency-dollar"></i><b>D</b></span>
                         <span class="pcoded-mtext">Keuangan</span>
                         <span class="pcoded-mcaret"></span>
                     </a>
+                </li>
+            @endif
+            @if (Auth::user()->role == 'Direktur' || Auth::user()->role == 'Supply Chain')
+                <li
+                    class="pcoded-hasmenu {{ $title == 'Laporan Pemesanan Barang' || $title == 'Laporan Permintaan Barang' || $title == 'Laporan Barang' || $title == 'Laporan Bahan Baku' || $title == 'Laporan Stock Opname' ? 'active pcoded-trigger' : '' }}">
+                    <a href="javascript:void(0)" class="waves-effect waves-dark">
+                        <span class="pcoded-micon"><i class="ti-file"></i></span>
+                        <span class="pcoded-mtext">Laporan</span>
+                        <span class="pcoded-mcaret"></span>
+                    </a>
+                    <ul class="pcoded-submenu">
+                        <li class="{{ $title == 'Laporan Pemesanan Barang' ? 'active' : '' }}">
+                            <a href="/laporan_pemesanan" class="waves-effect waves-dark">
+                                <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+                                <span class="pcoded-mtext"><i class="ti-receipt"></i> Pemesanan
+                                    Barang</span>
+                                <span class="pcoded-mcaret"></span>
+                            </a>
+                        </li>
+                        <li class="{{ $title == 'Laporan Permintaan Barang' ? 'active' : '' }}">
+                            <a href="/laporan_permintaan" class="waves-effect waves-dark">
+                                <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+                                <span class="pcoded-mtext"><i class="ti-receipt"></i> Permintaan
+                                    Barang</span>
+                                <span class="pcoded-mcaret"></span>
+                            </a>
+                        </li>
+                        <li class="{{ $title == 'Laporan Barang' ? 'active' : '' }}">
+                            <a href="/laporan_barang" class="waves-effect waves-dark">
+                                <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+                                <span class="pcoded-mtext"><i class="ti-receipt"></i> Stok Barang</span>
+                                <span class="pcoded-mcaret"></span>
+                            </a>
+                        </li>
+                        <li class="{{ $title == 'Laporan Bahan Baku' ? 'active' : '' }}">
+                            <a href="/laporan_bahan_baku" class="waves-effect waves-dark">
+                                <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+                                <span class="pcoded-mtext"><i class="ti-receipt"></i> Bahan
+                                    Baku</span>
+                                <span class="pcoded-mcaret"></span>
+                            </a>
+                        </li>
+                        <li class="{{ $title == 'Laporan Stock Opname' ? 'active' : '' }}">
+                            <a href="/laporan_stock_opname" class="waves-effect waves-dark">
+                                <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+                                <span class="pcoded-mtext"><i class="ti-receipt"></i> Stock
+                                    Opname</span>
+                                <span class="pcoded-mcaret"></span>
+                            </a>
+                        </li>
+                    </ul>
                 </li>
             @endif
         </ul>

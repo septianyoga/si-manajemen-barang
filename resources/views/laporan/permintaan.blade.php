@@ -15,7 +15,7 @@
                         <li class="breadcrumb-item">
                             <a href="/dashboard"> <i class="fa fa-home"></i> </a>
                         </li>
-                        <li class="breadcrumb-item"><a href="/pemesanan">{{ $title }}</a>
+                        <li class="breadcrumb-item"><a href="/permintaan_barang">{{ $title }}</a>
                         </li>
                     </ul>
                 </div>
@@ -32,8 +32,11 @@
                     <!-- Hover table card start -->
                     <div class="card">
                         <div class="card-header">
-                            <h5>Data Pemesanan</h5>
+                            <h5>Data Permintaan Barang</h5>
                             <div class="card-header-right d-flex align-items-center ">
+                                <a href="/laporan_permintaan/cetak" class="btn btn-primary">
+                                    <i class="ti-printer text-white "></i>
+                                    Print</a>
                                 <ul class="list-unstyled card-option">
                                     <li><i class="fa fa fa-wrench open-card-option"></i></li>
                                     <li><i class="fa fa-window-maximize full-card"></i></li>
@@ -46,45 +49,46 @@
                                 <thead>
                                     <tr>
                                         <th>#</th>
-                                        <th>Nama Bahan Baku</th>
-                                        <th>Nama Supplier</th>
-                                        <th>Jumlah Barang</th>
-                                        <th>Total Harga Pemesanan</th>
-                                        <th>Tanggal Pemesanan</th>
-                                        <th>Status</th>
-                                        <th class="text-center">Opsi</th>
+                                        <th>Tanggal Dibutuhkan</th>
+                                        <th>Total Barang</th>
+                                        <th>Total Harga</th>
+                                        <th>Barang</th>
+                                        <th>Status Permintaan</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($pemesanans as $pemesanan)
+                                    @foreach ($permintaans as $permintaan)
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
-                                            <td>{{ $pemesanan->bahan_baku->nama_barang }}</td>
-                                            <td>{{ $pemesanan->supplier->nama_supplier }}</td>
-                                            <td>{{ $pemesanan->jumlah_barang }}</td>
-                                            <td>Rp. {{ number_format($pemesanan->total_harga, 0, ',', '.') }}</td>
-                                            <td>{{ date('d-m-Y', strtotime($pemesanan->tgl_pesan)) }}</td>
+                                            <td>{{ date('d-m-Y', strtotime($permintaan->tanggal_dibutuhkan)) }}</td>
+                                            <td>{{ $permintaan->total_barang }}</td>
+                                            <td>Rp. {{ number_format($permintaan->total_harga, 0, ',', '.') }}</td>
+                                            <td>
+                                                <ul>
+                                                    @foreach ($permintaan->permintaan_barang as $permintaans)
+                                                        <li class=""><i
+                                                                class="bi bi-dot"></i>{{ $permintaans->barang->nama_barang }}
+                                                            x {{ $permintaans->jumlah_barang }}
+                                                        </li>
+                                                    @endforeach
+                                                </ul>
+                                            </td>
                                             <td>
                                                 <div class="label-main">
-                                                    @if ($pemesanan->status != 'Menunggu Approve')
-                                                        <label class="label label-success"> Di Approve
+                                                    @if ($permintaan->status_permintaan == 'Menunggu Approve')
+                                                        <label class="label label-primary">
+                                                            {{ $permintaan->status_permintaan }}
+                                                        </label>
+                                                    @elseif($permintaan->status_permintaan == 'Dikonfirmasi')
+                                                        <label class="label label-info">
+                                                            {{ $permintaan->status_permintaan }}
                                                         </label>
                                                     @else
-                                                        <label class="label label-primary"> {{ $pemesanan->status }}
+                                                        <label class="label label-success">
+                                                            {{ $permintaan->status_permintaan }}
                                                         </label>
                                                     @endif
                                                 </div>
-                                            </td>
-                                            <td class="text-center">
-                                                @if ($pemesanan->status != 'Menunggu Approve')
-                                                    <button onclick="confirmApprove({{ $pemesanan->id }})"
-                                                        class="btn btn-success btn-disabled disabled"><i
-                                                            class="icofont icofont-check-circled"></i>Approved</button>
-                                                @else
-                                                    <button onclick="confirmApprove({{ $pemesanan->id }})"
-                                                        class="btn btn-outline-success"><i
-                                                            class="icofont icofont-check-circled"></i>Approve</button>
-                                                @endif
                                             </td>
                                         </tr>
                                     @endforeach
@@ -100,23 +104,5 @@
         </div>
         <!-- Main-body end -->
     </div>
-
-    <script src="{{ asset('vendor/sweetalert/sweetalert.all.js') }}"></script>
-    <script>
-        function confirmApprove(id) {
-            Swal.fire({
-                title: "Yakin ingin approve pesanan ini?",
-                text: "Pencatatan Keuangan akan otomatis ditambahkan!",
-                icon: "warning",
-                showCancelButton: true,
-                confirmButtonColor: "#3085d6",
-                cancelButtonColor: "#d33",
-                confirmButtonText: "Yes, Approve!"
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    document.location.href = '/approve_pesanan/' + id + '/approve';
-                }
-            });
-        }
-    </script>
+    {{-- modal --}}
 @endsection

@@ -88,6 +88,8 @@ class PemesananController extends Controller
     {
         $pemesanan = Pemesanan::with('supplier')->findOrFail($id);
 
+
+
         $curl = curl_init();
 
         curl_setopt_array($curl, array(
@@ -100,8 +102,9 @@ class PemesananController extends Controller
             CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
             CURLOPT_CUSTOMREQUEST => 'POST',
             CURLOPT_POSTFIELDS => array(
-                'target' => '0895330930059',
-                'message' => 'Halo ' . $pemesanan->supplier->nama_supplier . '! Kami telah melakukan pemesanan barang kepada anda. Berikut adalah link Purchase Order untuk informasi lebih detail dari barang yang dipesan. ' . asset('po/contoh_po.pdf'),
+                'target' => $pemesanan->supplier->no_telepon,
+                'templateJSON' => '{"message":"Halo ' . $pemesanan->supplier->nama_supplier . '! Kami telah melakukan pemesanan barang kepada anda. Berikut adalah link Purchase Order untuk informasi lebih detail dari barang yang dipesan.","buttons":[{"message":"LINK PO","url":"http://' . $_SERVER['HTTP_HOST'] . '/cetak_po/' . $id . '"}]}',
+                // 'message' => 'Halo ' . $pemesanan->supplier->nama_supplier . '! Kami telah melakukan pemesanan barang kepada anda. Berikut adalah link Purchase Order untuk informasi lebih detail dari barang yang dipesan. ' . asset('po/contoh_po.pdf'),
                 'countryCode' => '62', //optional
             ),
             CURLOPT_HTTPHEADER => array(
@@ -113,6 +116,9 @@ class PemesananController extends Controller
 
         curl_close($curl);
         echo $response;
+        $pemesanan->update([
+            'status'    => 'Dalam Proses'
+        ]);
 
         $pemesanan->update([
             'status'    => 'Dalam Proses'
@@ -149,8 +155,8 @@ class PemesananController extends Controller
             'isHtml5ParserEnabled' => true,
             'isRemoteEnabled' => true, 'isJavascriptEnabled' => true
         ]);
-        // return $pdf->download('tiket-' . $id . '.pdf');
-        return $pdf->stream('tiket.pdf');
+        return $pdf->download('PO000' . $id . '.pdf');
+        // return $pdf->stream('tiket.pdf');
         // return view('cetak.cetak_po', [
         //     'title' => 'Cetak PO',
         //     'pemesanan' => $pemesanan
