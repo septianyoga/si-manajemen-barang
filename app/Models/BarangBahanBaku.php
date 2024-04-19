@@ -20,4 +20,9 @@ class BarangBahanBaku extends Model
     {
         return $this->belongsTo(BahanBaku::class);
     }
+
+    public function barang(): BelongsTo
+    {
+        return $this->belongsTo(Barang::class);
+    }
 }

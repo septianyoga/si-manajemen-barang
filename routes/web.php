@@ -9,6 +9,7 @@ use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\PemesananController;
 use App\Http\Controllers\PermintaanBarangController;
+use App\Http\Controllers\SafetyStockController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -75,6 +76,8 @@ Route::middleware('auth')->group(function () {
         Route::get('/pemesanan/konfirmasi/{id}', [PemesananController::class, 'konfirmasi'])->name('pemesanan');
         Route::get('/pemesanan/selesai/{id}', [PemesananController::class, 'selesai'])->name('pemesanan');
 
+        Route::get('/cetak_po/{id}', [PemesananController::class, 'cetakPO'])->name('cetak_po');
+
         Route::get('/eoq', [EOQController::class, 'index'])->name('eoq');
         Route::get('/eoq/{id}', [EOQController::class, 'show'])->name('eoq');
 
@@ -83,6 +86,10 @@ Route::middleware('auth')->group(function () {
 
         Route::get('/barang_masuk', [BarangController::class, 'barangMasuk'])->name('barang_masuk');
         Route::get('/barang_keluar', [BarangController::class, 'barangKeluar'])->name('barang_keluar');
+
+        Route::get('/safety_stock', [SafetyStockController::class, 'index'])->name('safety_stock');
+        Route::post('/safety_stock/hitung/{id}', [SafetyStockController::class, 'update']);
+        Route::get('/safety_stock/rop/{id}', [SafetyStockController::class, 'hitungROP']);
     });
 
     Route::group(['middleware' => 'userAkses:Finance'], function () {

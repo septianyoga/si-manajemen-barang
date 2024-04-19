@@ -86,19 +86,23 @@
                                             <td class="text-center">
                                                 @if ($pemesanan->status == 'Menunggu Konfirmasi')
                                                     <button onclick="handleConfirm({{ $pemesanan->id }})"
-                                                        class="btn btn-outline-warning"><i
+                                                        class="btn btn-sm btn-outline-warning"><i
                                                             class="icofont icofont-check-circled"></i>Konfirmasi</button>
                                                 @elseif($pemesanan->status == 'Dalam Proses')
                                                     <button onclick="handleDiterima({{ $pemesanan->id }})"
-                                                        class="btn btn-outline-info"><i
+                                                        class="btn btn-sm btn-outline-info"><i
                                                             class="icofont icofont-check-circled"></i>Pesanan
                                                         Diterima</button>
                                                 @elseif($pemesanan->status == 'Selesai')
-                                                    <button class="btn btn-outline-success btn-disabled disabled"><i
+                                                    <button class="btn btn-sm btn-outline-success btn-disabled disabled"><i
                                                             class="icofont icofont-check-circled"></i>Selesai</button>
                                                 @else
-                                                    <button class="btn btn-outline-warning btn-disabled disabled"><i
+                                                    <button class="btn btn-sm btn-outline-warning btn-disabled disabled"><i
                                                             class="icofont icofont-check-circled"></i>Konfirmasi</button>
+                                                @endif
+                                                @if ($pemesanan->status != 'Menunggu Approve')
+                                                    <a href="/cetak_po/{{ $pemesanan->id }}"
+                                                        class="btn btn-sm btn-primary">Cetak PO</a>
                                                 @endif
                                             </td>
                                         </tr>

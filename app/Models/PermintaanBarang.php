@@ -21,4 +21,9 @@ class PermintaanBarang extends Model
     {
         return $this->belongsTo(Barang::class);
     }
+
+    public function permintaan(): BelongsTo
+    {
+        return $this->belongsTo(Permintaan::class);
+    }
 }

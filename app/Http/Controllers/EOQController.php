@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\BahanBaku;
 use App\Models\Pemesanan;
+use App\Models\PermintaanBarang;
 use Illuminate\Http\Request;
 
 class EOQController extends Controller
@@ -71,5 +72,14 @@ class EOQController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+
+    public function safetyStock()
+    {
+        // $permintaan_barang = PermintaanBarang::with(['permintaan' => function ($query) {
+        //     $query->whereYear('tanggal_dibutuhkan', 2024);
+        // }])->get();
+        // return $permintaan_barang;
+        // return view('')
     }
 }

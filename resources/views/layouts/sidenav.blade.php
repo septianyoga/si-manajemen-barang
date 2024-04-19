@@ -106,17 +106,10 @@
                         <span class="pcoded-mcaret"></span>
                     </a>
                 </li>
-                <li class="{{ $title == 'Safety Stock' ? 'active' : '' }}">
-                    <a href="/eoq" class="waves-effect waves-dark">
+                <li class="{{ $title == 'Hitung Safety Stock & ROP' ? 'active' : '' }}">
+                    <a href="/safety_stock" class="waves-effect waves-dark">
                         <span class="pcoded-micon"><i class="icofont icofont-safety"></i><b>D</b></span>
-                        <span class="pcoded-mtext">Safety Stock</span>
-                        <span class="pcoded-mcaret"></span>
-                    </a>
-                </li>
-                <li class="{{ $title == 'Reorder Point' ? 'active' : '' }}">
-                    <a href="/eoq" class="waves-effect waves-dark">
-                        <span class="pcoded-micon"><i class="icofont icofont-retweet"></i><b>D</b></span>
-                        <span class="pcoded-mtext">ROP</span>
+                        <span class="pcoded-mtext">Safety Stock & ROP</span>
                         <span class="pcoded-mcaret"></span>
                     </a>
                 </li>

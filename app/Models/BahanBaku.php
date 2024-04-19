@@ -17,11 +17,19 @@ class BahanBaku extends Model
         'biaya_penyimpanan',
         'stok',
         'kategori',
+        'lead_time',
+        'safety_stock',
+        'rop'
     ];
 
     public function pemesanan(): HasMany
     {
 
         return $this->hasMany(Pemesanan::class)->whereYear('tgl_pesan', date('Y') - 1);
+    }
+
+    public function barang_bahan_baku(): HasMany
+    {
+        return $this->hasMany(BarangBahanBaku::class);
     }
 }

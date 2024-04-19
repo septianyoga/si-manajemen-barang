@@ -7,6 +7,7 @@ use App\Http\Requests\StorePemesananRequest;
 use App\Http\Requests\UpdatePemesananRequest;
 use App\Models\BahanBaku;
 use App\Models\Supplier;
+use Barryvdh\DomPDF\Facade\Pdf;
 use RealRashid\SweetAlert\Facades\Alert;
 
 class PemesananController extends Controller
@@ -136,5 +137,23 @@ class PemesananController extends Controller
 
         Alert::success('Berhasil', 'Pemesanan Berhasil Diselesaikan!');
         return redirect()->to('/pemesanan');
+    }
+
+    public function cetakPO(string $id)
+    {
+        $pemesanan = Pemesanan::with(['bahan_baku', 'supplier'])->findOrFail($id);
+
+        $pdf = Pdf::loadView('cetak.cetak_po', [
+            'pemesanan' => $pemesanan,
+        ])->setPaper('A4')->setOptions([
+            'isHtml5ParserEnabled' => true,
+            'isRemoteEnabled' => true, 'isJavascriptEnabled' => true
+        ]);
+        // return $pdf->download('tiket-' . $id . '.pdf');
+        return $pdf->stream('tiket.pdf');
+        // return view('cetak.cetak_po', [
+        //     'title' => 'Cetak PO',
+        //     'pemesanan' => $pemesanan
+        // ]);
     }
 }
