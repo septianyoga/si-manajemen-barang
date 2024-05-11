@@ -199,9 +199,9 @@
                                                                         {{ date('d M Y', strtotime($pemesanan->tgl_pesan)) }}
                                                                     </h6>
                                                                     <p class="text-muted m-b-0">Supplier:
-                                                                        {{ $pemesanan->supplier->nama_supplier }}</p>
+                                                                        {{ $pemesanan->supplier?->nama_supplier }}</p>
                                                                     <p class="text-muted m-b-0">Pesanan:
-                                                                        {{ $pemesanan->bahan_baku->nama_barang }}</p>
+                                                                        {{ $pemesanan->bahan_baku?->nama_barang }}</p>
                                                                 </div>
                                                             </div>
                                                         </td>
