@@ -67,17 +67,17 @@
                                                         <li>
                                                             <i class="bi bi-dot"></i>
                                                             <b
-                                                                class="font-weight-bold ">{{ $barang_bahan->barang->nama_barang }}</b>
+                                                                class="font-weight-bold ">{{ $barang_bahan->barang?->nama_barang }}</b>
                                                         </li>
                                                         <li class="ml-3">
                                                             History Permintaan:
                                                             <ul>
-                                                                @foreach ($barang_bahan->barang->permintaan_barang as $minta)
+                                                                @foreach ($barang_bahan->barang?->permintaan_barang as $minta)
                                                                     @if ($minta->permintaan)
                                                                         <li>
                                                                             <i class="bi bi-dot"></i>
                                                                             Tgl
-                                                                            {{ date('d-m-Y', strtotime($minta->permintaan->tanggal_dibutuhkan)) }}
+                                                                            {{ date('d-m-Y', strtotime($minta->permintaan?->tanggal_dibutuhkan)) }}
                                                                             ({{ $minta->jumlah_barang }})
                                                                         </li>
                                                                     @endif

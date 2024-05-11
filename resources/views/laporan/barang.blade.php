@@ -66,10 +66,10 @@
                                             <td>{{ $barang->status_barang }}</td>
                                             <td>
                                                 <ul>
-                                                    @foreach ($barang->barang_bahan_baku as $bahan)
+                                                    @foreach ($barang?->barang_bahan_baku as $bahan)
                                                         <li class=""><i
-                                                                class="bi bi-dot"></i>{{ $bahan->bahan_baku->nama_barang }}
-                                                            x {{ $bahan->jumlah }} {{ $bahan->bahan_baku->satuan }}
+                                                                class="bi bi-dot"></i>{{ $bahan?->bahan_baku?->nama_barang }}
+                                                            x {{ $bahan->jumlah }} {{ $bahan?->bahan_baku?->satuan }}
                                                         </li>
                                                     @endforeach
                                                 </ul>

@@ -65,7 +65,7 @@
                                                 <ul>
                                                     @foreach ($permintaan->permintaan_barang as $permintaans)
                                                         <li class=""><i
-                                                                class="bi bi-dot"></i>{{ $permintaans->barang->nama_barang }}
+                                                                class="bi bi-dot"></i>{{ $permintaans->barang?->nama_barang }}
                                                             x {{ $permintaans->jumlah_barang }}
                                                         </li>
                                                     @endforeach

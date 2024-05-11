@@ -72,13 +72,13 @@
                                             <td>Rp. {{ number_format($keuangan->biaya, 0, ',', '.') }}</td>
                                             <td>
                                                 @if ($keuangan->kategori == 'Pengeluaran')
-                                                    {{ $keuangan->pemesanan->bahan_baku->nama_barang }}
+                                                    {{ $keuangan->pemesanan?->bahan_baku?->nama_barang }}
                                                 @else
                                                     <ul>
-                                                        @foreach ($keuangan->permintaan->permintaan_barang as $barangs)
+                                                        @foreach ($keuangan->permintaan?->permintaan_barang as $barangs)
                                                             <li>
                                                                 <i class="bi bi-dot"></i>
-                                                                {{ $barangs->barang->nama_barang }}
+                                                                {{ $barangs->barang?->nama_barang }}
                                                             </li>
                                                         @endforeach
                                                     </ul>

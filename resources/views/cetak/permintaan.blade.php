@@ -33,7 +33,7 @@
                 <td>
                     <ul>
                         @foreach ($permintaan->permintaan_barang as $permintaans)
-                            <li>{{ $permintaans->barang->nama_barang }}
+                            <li>{{ $permintaans->barang?->nama_barang }}
                                 x {{ $permintaans->jumlah_barang }}
                             </li>
                         @endforeach

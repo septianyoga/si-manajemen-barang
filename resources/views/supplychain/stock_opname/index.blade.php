@@ -59,7 +59,7 @@
                                     @foreach ($stock_opnames as $stok)
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
-                                            <td>{{ $stok->barang->nama_barang }}</td>
+                                            <td>{{ $stok->barang?->nama_barang }}</td>
                                             <td>{{ $stok->status }}</td>
                                             <td>{{ $stok->jumlah }}</td>
                                             <td>{{ date('d-m-Y H:i:s', strtotime($stok->created_at)) }}</td>

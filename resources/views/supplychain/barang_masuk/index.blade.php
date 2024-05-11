@@ -59,11 +59,11 @@
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
                                             <td>{{ date('d-m-Y', strtotime($masuk->tgl_masuk)) }}</td>
-                                            <td>{{ $masuk->bahan_baku->nama_barang }}</td>
-                                            <td>{{ $masuk->jumlah_barang }} {{ $masuk->bahan_baku->satuan }}</td>
+                                            <td>{{ $masuk->bahan_baku?->nama_barang }}</td>
+                                            <td>{{ $masuk->jumlah_barang }} {{ $masuk->bahan_baku?->satuan }}</td>
                                             <td>Rp. {{ number_format($masuk->total_harga, 0, ',', '.') }}</td>
-                                            <td>{{ $masuk->supplier->nama_supplier }}</td>
-                                            <td>{{ $masuk->bahan_baku->stok }}</td>
+                                            <td>{{ $masuk->supplier?->nama_supplier }}</td>
+                                            <td>{{ $masuk->bahan_baku?->stok }}</td>
                                         </tr>
                                     @endforeach
                                 </tbody>

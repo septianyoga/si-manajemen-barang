@@ -66,10 +66,10 @@
         </tr>
         <tr>
             <th>1.</th>
-            <th>{{ $pemesanan->bahan_baku->nama_barang }}</th>
+            <th>{{ $pemesanan->bahan_baku?->nama_barang }}</th>
             <th>{{ $pemesanan->jumlah_barang }}</th>
-            <th>{{ $pemesanan->bahan_baku->harga }}</th>
-            <th>{{ $pemesanan->bahan_baku->harga * $pemesanan->jumlah_barang }}</th>
+            <th>{{ $pemesanan->bahan_baku?->harga }}</th>
+            <th>{{ $pemesanan->bahan_baku?->harga * $pemesanan->jumlah_barang }}</th>
         </tr>
     </table>
     <table border="1" cellspacing="0" cellpadding="4" style="margin-top: 20px; width: 100%;">

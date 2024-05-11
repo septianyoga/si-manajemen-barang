@@ -62,13 +62,13 @@
                                                 <ul>
                                                     @foreach ($keluar->permintaan_barang as $item)
                                                         <li>
-                                                            <i class="bi bi-dot"></i>{{ $item->barang->nama_barang }}
+                                                            <i class="bi bi-dot"></i>{{ $item->barang?->nama_barang }}
                                                         </li>
                                                         <li class="ml-3">
                                                             Jumlah Keluar : {{ $item->jumlah_barang }}
                                                         </li>
                                                         <li class="ml-3">
-                                                            Stok Tersisa : {{ $item->barang->stok_barang }}
+                                                            Stok Tersisa : {{ $item->barang?->stok_barang }}
                                                         </li>
                                                     @endforeach
                                                 </ul>

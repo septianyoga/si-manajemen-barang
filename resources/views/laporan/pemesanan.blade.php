@@ -61,8 +61,8 @@
                                     @foreach ($pemesanans as $pemesanan)
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
-                                            <td>{{ $pemesanan->bahan_baku->nama_barang }}</td>
-                                            <td>{{ $pemesanan->supplier->nama_supplier }}</td>
+                                            <td>{{ $pemesanan->bahan_baku?->nama_barang }}</td>
+                                            <td>{{ $pemesanan->supplier?->nama_supplier }}</td>
                                             <td>{{ $pemesanan->jumlah_barang }}</td>
                                             <td>Rp. {{ number_format($pemesanan->total_harga, 0, ',', '.') }}</td>
                                             <td>{{ date('d-m-Y', strtotime($pemesanan->tgl_pesan)) }}</td>
