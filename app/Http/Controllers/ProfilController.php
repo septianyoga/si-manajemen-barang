@@ -2,16 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\BahanBaku;
-use App\Models\Barang;
-use App\Models\Pemesanan;
-use App\Models\Permintaan;
-use App\Models\StockOpname;
-use App\Models\Supplier;
+use App\Http\Requests\ProfilUpdateRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use RealRashid\SweetAlert\Facades\Alert;
 
-class DashboardController extends Controller
+class ProfilController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -19,18 +17,9 @@ class DashboardController extends Controller
     public function index()
     {
         //
-        return view('dashboard.index', [
-            'title' => 'Dashboard',
-            'total' => [
-                'user'  => User::count(),
-                'barang'    => Barang::count(),
-                'bahan_baku'    => BahanBaku::count(),
-                'stok_opname'   => StockOpname::count(),
-                'supplier'      => Supplier::count(),
-                'pemesanan'     => Pemesanan::count()
-            ],
-            'pemesanans' => Pemesanan::with(['supplier', 'bahan_baku'])->orderBy('id', 'DESC')->limit(4)->get(),
-            'permintaans'    => Permintaan::with('permintaan_barang.barang')->orderBy('id', 'DESC')->limit(4)->get()
+        return view('profil.index', [
+            'title' => 'Kelola Profil',
+            'user'  => User::find(Auth::user()->id)
         ]);
     }
 
@@ -45,9 +34,21 @@ class DashboardController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(ProfilUpdateRequest $request)
     {
         //
+        $data = [
+            'nama' => $request->nama,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+        ];
+        if ($request->password == null) {
+            unset($data['password']);
+        }
+        $user = User::find(Auth::user()->id);
+        $user->update($data);
+        Alert::success('Berhasil', 'Profil Berhasil Diupdate!');
+        return redirect()->to('/profil');
     }
 
     /**

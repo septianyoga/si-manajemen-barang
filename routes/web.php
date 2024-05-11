@@ -11,6 +11,7 @@ use App\Http\Controllers\LaporanController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\PemesananController;
 use App\Http\Controllers\PermintaanBarangController;
+use App\Http\Controllers\ProfilController;
 use App\Http\Controllers\SafetyStockController;
 use App\Http\Controllers\StockOpnameController;
 use App\Http\Controllers\SupplierController;
@@ -40,7 +41,10 @@ Route::middleware('guest')->group(function () {
 });
 
 Route::middleware('auth')->group(function () {
-    Route::get('/dashboard', [DashboardController::class, 'index']);
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
+    Route::get('/profil', [ProfilController::class, 'index'])->name('profil');
+    Route::post('/profil', [ProfilController::class, 'store']);
 
     Route::group(['middleware' => 'userAkses:Direktur'], function () {
         Route::get('/users', [UserController::class, 'index'])->name('users');
