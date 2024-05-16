@@ -97,20 +97,32 @@
                         <span class="pcoded-mcaret"></span>
                     </a>
                 </li>
-                <li class="{{ $title == 'Hitung EOQ' ? 'active' : '' }}">
-                    <a href="/eoq" class="waves-effect waves-dark">
-                        <span class="pcoded-micon"><i class="icofont icofont-calculations"></i><b>D</b></span>
-                        <span class="pcoded-mtext">EOQ</span>
+                <li
+                    class="pcoded-hasmenu {{ $title == 'Hitung EOQ' || $title == 'Hitung Safety Stock & ROP' ? 'active pcoded-trigger' : '' }}">
+                    <a href="javascript:void(0)" class="waves-effect waves-dark">
+                        <span class="pcoded-micon"><i class="icofont icofont-calculations"></i></span>
+                        <span class="pcoded-mtext">Rekomendasi Pemesanan</span>
                         <span class="pcoded-mcaret"></span>
                     </a>
+                    <ul class="pcoded-submenu">
+                        <li class="{{ $title == 'Hitung EOQ' ? 'active' : '' }}">
+                            <a href="/eoq" class="waves-effect waves-dark">
+                                <span class="pcoded-micon"><i class="icofont icofont-calculations"></i><b>D</b></span>
+                                <span class="pcoded-mtext"><i class="icofont icofont-calculations"></i> EOQ</span>
+                                <span class="pcoded-mcaret"></span>
+                            </a>
+                        </li>
+                        <li class="{{ $title == 'Hitung Safety Stock & ROP' ? 'active' : '' }}">
+                            <a href="/safety_stock" class="waves-effect waves-dark">
+                                <span class="pcoded-micon"><i class="icofont icofont-safety"></i><b>D</b></span>
+                                <span class="pcoded-mtext"><i class="icofont icofont-safety"></i> Safety Stock &
+                                    ROP</span>
+                                <span class="pcoded-mcaret"></span>
+                            </a>
+                        </li>
+                    </ul>
                 </li>
-                <li class="{{ $title == 'Hitung Safety Stock & ROP' ? 'active' : '' }}">
-                    <a href="/safety_stock" class="waves-effect waves-dark">
-                        <span class="pcoded-micon"><i class="icofont icofont-safety"></i><b>D</b></span>
-                        <span class="pcoded-mtext">Safety Stock & ROP</span>
-                        <span class="pcoded-mcaret"></span>
-                    </a>
-                </li>
+
                 <li class="{{ $title == 'Approve Permintaan Barang' ? 'active' : '' }}">
                     <a href="/approve_permintaan" class="waves-effect waves-dark">
                         <span class="pcoded-micon"><i class="icofont icofont-check-circled"></i><b>D</b></span>
