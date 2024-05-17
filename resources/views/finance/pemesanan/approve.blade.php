@@ -84,6 +84,8 @@
                                                     <button onclick="confirmApprove({{ $pemesanan->id }})"
                                                         class="btn btn-outline-success"><i
                                                             class="icofont icofont-check-circled"></i>Approve</button>
+                                                    <button class="btn btn-outline-danger"
+                                                        onclick="showReject({{ $pemesanan->id }})">Tolak</button>
                                                 @endif
                                             </td>
                                         </tr>
@@ -119,4 +121,39 @@
             });
         }
     </script>
+    <script>
+        function showReject(id) {
+            Swal.fire({
+                title: "Masukan Pesan Penolakan",
+                input: "textarea",
+                inputAttributes: {
+                    autocapitalize: "off"
+                },
+                showCancelButton: true,
+                confirmButtonText: "Tolak",
+                confirmButtonColor: "#d33",
+                showLoaderOnConfirm: true,
+                preConfirm: async (message) => {
+                    if (message == '') {
+                        return Swal.showValidationMessage('Pesan Tolak Wajib Diisi!');
+                    }
+                },
+                allowOutsideClick: () => !Swal.isLoading()
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Set the values in the hidden form inputs
+                    document.querySelector('form#rejectForm input[name="id"]').value = id;
+                    document.querySelector('form#rejectForm input[name="pesan"]').value = result.value;
+
+                    // Submit the form
+                    document.querySelector('form#rejectForm').submit();
+                }
+            });
+        }
+    </script>
+    <form id="rejectForm" action="/approve_pesanan/reject" method="POST">
+        @csrf
+        <input type="hidden" name="id">
+        <input type="hidden" name="pesan">
+    </form>
 @endsection

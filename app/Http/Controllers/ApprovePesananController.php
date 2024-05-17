@@ -85,4 +85,9 @@ class ApprovePesananController extends Controller
         Alert::success('Berhasil', 'Pesanan Berhasil Diapprove!');
         return redirect()->to('/approve_pesanan');
     }
+
+    public function reject(Request $request)
+    {
+        dd($request);
+    }
 }

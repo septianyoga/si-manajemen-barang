@@ -119,6 +119,7 @@ Route::middleware('auth')->group(function () {
     Route::group(['middleware' => 'userAkses:Finance'], function () {
         Route::get('/approve_pesanan', [ApprovePesananController::class, 'index'])->name('approve_pesanan');
         Route::get('/approve_pesanan/{id}/approve', [ApprovePesananController::class, 'destroy'])->name('approve_pesanan');
+        Route::post('/approve_pesanan/reject', [ApprovePesananController::class, 'reject'])->name('reject_pesanan');
 
         Route::get('/keuangan', [KeuanganController::class, 'index'])->name('keuangan');
     });
