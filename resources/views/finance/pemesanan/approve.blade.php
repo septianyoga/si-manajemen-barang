@@ -66,7 +66,10 @@
                                             <td>{{ date('d-m-Y', strtotime($pemesanan->tgl_pesan)) }}</td>
                                             <td>
                                                 <div class="label-main">
-                                                    @if ($pemesanan->status != 'Menunggu Approve')
+                                                    @if ($pemesanan->status == 'Ditolak')
+                                                        <label class="label label-danger"> Ditolak
+                                                        </label>
+                                                    @elseif($pemesanan->status != 'Menunggu Approve')
                                                         <label class="label label-success"> Di Approve
                                                         </label>
                                                     @else
@@ -76,9 +79,13 @@
                                                 </div>
                                             </td>
                                             <td class="text-center">
-                                                @if ($pemesanan->status != 'Menunggu Approve')
-                                                    <button onclick="confirmApprove({{ $pemesanan->id }})"
-                                                        class="btn btn-success btn-disabled disabled"><i
+                                                @if ($pemesanan->status == 'Ditolak')
+                                                    <button class="btn btn-outline-danger" data-toggle="modal"
+                                                        data-target="#tolak-{{ $pemesanan->id }}"><i
+                                                            class="icofont icofont-close-circled"></i>Lihat
+                                                        Keterangan</button>
+                                                @elseif($pemesanan->status != 'Menunggu Approve')
+                                                    <button class="btn btn-success btn-disabled disabled"><i
                                                             class="icofont icofont-check-circled"></i>Approved</button>
                                                 @else
                                                     <button onclick="confirmApprove({{ $pemesanan->id }})"
@@ -102,6 +109,29 @@
         </div>
         <!-- Main-body end -->
     </div>
+
+    @foreach ($pemesanans as $item)
+        <div class="modal fade" id="tolak-{{ $item->id }}" tabindex="-1" role="dialog"
+            aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Keterangan Ditolak</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <p><strong>Keterangan ditolak :</strong></p>
+                        <p>{{ $item->keterangan }}</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    @endforeach
 
     <script src="{{ asset('vendor/sweetalert/sweetalert.all.js') }}"></script>
     <script>

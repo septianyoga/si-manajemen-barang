@@ -17,6 +17,7 @@ class Pemesanan extends Model
         'tgl_pesan',
         'tgl_masuk',
         'bahan_baku_id',
+        'keterangan',
         'supplier_id',
     ];
 

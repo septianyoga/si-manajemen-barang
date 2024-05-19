@@ -88,6 +88,12 @@ class ApprovePesananController extends Controller
 
     public function reject(Request $request)
     {
-        dd($request);
+        $pemesanan = Pemesanan::findOrFail($request->id);
+        $pemesanan->update([
+            'status'    => 'Ditolak',
+            'keterangan'    => $request->pesan
+        ]);
+        Alert::success('Berhasil', 'Pesanan Berhasil Ditolak!');
+        return redirect()->to('/approve_pesanan');
     }
 }

@@ -77,6 +77,9 @@
                                                     @elseif($pemesanan->status == 'Dalam Proses')
                                                         <label class="label label-info"> {{ $pemesanan->status }}
                                                         </label>
+                                                    @elseif($pemesanan->status == 'Ditolak')
+                                                        <label class="label label-danger"> {{ $pemesanan->status }}
+                                                        </label>
                                                     @else
                                                         <label class="label label-success"> {{ $pemesanan->status }}
                                                         </label>
@@ -91,8 +94,13 @@
                                                 @elseif($pemesanan->status == 'Dalam Proses')
                                                     <button onclick="handleDiterima({{ $pemesanan->id }})"
                                                         class="btn btn-sm btn-outline-info"><i
-                                                            class="icofont icofont-check-circled"></i>Pesanan
-                                                        Diterima</button>
+                                                            class="icofont icofont-check-circled"></i>Terima
+                                                        Pesanan</button>
+                                                @elseif($pemesanan->status == 'Ditolak')
+                                                    <button class="btn btn-outline-danger" data-toggle="modal"
+                                                        data-target="#tolak-{{ $pemesanan->id }}"><i
+                                                            class="icofont icofont-close-circled"></i>Lihat
+                                                        Keterangan</button>
                                                 @elseif($pemesanan->status == 'Selesai')
                                                     <button class="btn btn-sm btn-outline-success btn-disabled disabled"><i
                                                             class="icofont icofont-check-circled"></i>Selesai</button>
@@ -100,7 +108,7 @@
                                                     <button class="btn btn-sm btn-outline-warning btn-disabled disabled"><i
                                                             class="icofont icofont-check-circled"></i>Konfirmasi</button>
                                                 @endif
-                                                @if ($pemesanan->status != 'Menunggu Approve')
+                                                @if ($pemesanan->status != 'Menunggu Approve' && $pemesanan->status != 'Ditolak')
                                                     <a href="/cetak_po/{{ $pemesanan->id }}"
                                                         class="btn btn-sm btn-primary">Cetak PO</a>
                                                 @endif
@@ -198,6 +206,31 @@
         </div>
     </div>
 
+    @foreach ($pemesanans as $item)
+        @if ($item->status == 'Ditolak')
+            <div class="modal fade" id="tolak-{{ $item->id }}" tabindex="-1" role="dialog"
+                aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Keterangan Ditolak</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <p><strong>Keterangan ditolak :</strong></p>
+                            <p>{{ $item->keterangan }}</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        @endif
+    @endforeach
+
     @if ($errors->any())
         <script>
             document.addEventListener("DOMContentLoaded", function() {
@@ -230,12 +263,16 @@
                 text: "Pesanan diselesaikan artinya pesanan sudah anda terima dan akan menambahkan stok barang!",
                 icon: "info",
                 showCancelButton: true,
+                showDenyButton: true,
+                denyButtonText: `Komplain Pesanan`,
                 confirmButtonColor: "#3085d6",
-                cancelButtonColor: "#d33",
                 confirmButtonText: "Ya, Selesaikan!"
             }).then((result) => {
                 if (result.isConfirmed) {
                     document.location.href = '/pemesanan/selesai/' + id;
+                } else if (result.isDenied) {
+                    document.location.href = '/';
+                    // diarahin ke new page detail complain 
                 }
             });
         }
